@@ -64,9 +64,29 @@ class SecuTest extends TestCase
     }
 
     /** @test */
-    public function it_can_preserve_content_integrity()
+    public function it_can_preserve_string_content_integrity()
     {
         $data = 'test-data';
+        $secu = $this->post('s', ['data' => $data])->response->content();
+        $secu = json_decode($secu, true);
+
+        $retrievedSecu = $this->get("s/{$secu['hash']}")->response->content();
+        $retrievedSecu = json_decode($retrievedSecu, true);
+
+        $this->assertEquals($data, $retrievedSecu['data']);
+    }
+
+    /** @test */
+    public function it_can_preserve_array_content_integrity()
+    {
+        $data = [
+            'level1' => [
+                'level2' => [
+                    'level3' => 'test-data',
+                ],
+            ],
+            'author' => "Tom's data",
+        ];
         $secu = $this->post('s', ['data' => $data])->response->content();
         $secu = json_decode($secu, true);
 
