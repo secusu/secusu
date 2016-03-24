@@ -1,0 +1,3 @@
+Email: {{ $email }}
+
+{{ $body }}
