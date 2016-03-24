@@ -1,11 +1,15 @@
 # SЁCU
 
-[![Gitter chat](https://badges.gitter.im/secusu/secusu.svg)](https://gitter.im/secusu/secusu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter chat](https://badges.gitter.im/secusu/secusu.svg)](https://gitter.im/secusu/secusu)
 [![Build Status](https://travis-ci.org/secusu/secusu.svg)](https://travis-ci.org/secusu/secusu)
 [![Latest Stable Version](https://poser.pugx.org/secu/secu/version)](https://packagist.org/packages/secu/secu)
-[![License](https://poser.pugx.org/secu/secu/license)](https://packagist.org/packages/secu/secu)
+[![License](https://poser.pugx.org/secu/secu/license)](https://github.com/secusu/secusu/blob/master/LICENSE)
 
 Sёcu is a public API to store self-destructing data payloads.
+
+<p align="center">
+<img src="https://cloud.githubusercontent.com/assets/1849174/14016031/cbd32b58-f1d6-11e5-9a18-864e660b9af5.png">
+</p>
 
 ## Configuration
 
