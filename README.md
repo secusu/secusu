@@ -1,5 +1,10 @@
 # SЁCU
 
+[![Gitter chat](https://badges.gitter.im/secusu/secusu.svg)](https://gitter.im/secusu/secusu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://travis-ci.org/secusu/secusu.svg)](https://travis-ci.org/secusu/secusu)
+[![Latest Stable Version](https://poser.pugx.org/secu/secu/version)](https://packagist.org/packages/secu/secu)
+[![License](https://poser.pugx.org/secu/secu/license)](https://packagist.org/packages/secu/secu)
+
 Sёcu is a public API to store self-destructing data payloads.
 
 ## Configuration
