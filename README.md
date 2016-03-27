@@ -7,7 +7,7 @@
 
 [SЁCU](https://secu.su/) is a public API to store self-destructing data payloads.
 This repository includes only backend part using Laravel framework.
-Frontend could be found in [SЁCU web application repository](secusu/web-app).
+Frontend could be found in [SЁCU web application repository](https://github.com/secusu/web-app).
 
 <p align="center">
 <img src="https://cloud.githubusercontent.com/assets/1849174/14016031/cbd32b58-f1d6-11e5-9a18-864e660b9af5.png">
