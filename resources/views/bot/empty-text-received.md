@@ -1,0 +1,1 @@
+At the moment only plain text can be encrypted.

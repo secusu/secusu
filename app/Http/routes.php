@@ -10,8 +10,6 @@ Route::group(['middleware' => ['api', 'cors']], function () {
 
     Route::options('feedback', ['as' => 'feedback.options', 'uses' => 'Api\V1\FeedbackController@options']);
     Route::post('feedback', ['as' => 'feedback.store', 'uses' => 'Api\V1\FeedbackController@store']);
-});
 
-Route::group(['middleware' => ['web']], function () {
-    //
+    Route::post('bot/telegram/{token}', ['as' => 'bot.telegram.listen', 'uses' => 'Api\V1\Bot\TelegramController@listen']);
 });

@@ -2,6 +2,10 @@
 
 All notable changes to `secusu` will be documented in this file.
 
+## 1.2.0 - 2016-04-13
+
+- Added Telegram bot
+
 ## 1.1.0 - 2016-04-13
 
 - Repository design pattern implemented
