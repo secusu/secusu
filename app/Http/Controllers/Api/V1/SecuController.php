@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Sёcu.
+ * This file is part of SЁCU.
  *
  * (c) CyberCog <support@cybercog.su>
  *
@@ -13,7 +13,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SecuRequest;
-use App\Models\Secu;
+use App\Repositories\Secu\SecuRepository;
 use Nocarrier\Hal;
 
 /**
@@ -23,14 +23,14 @@ use Nocarrier\Hal;
 class SecuController extends Controller
 {
     /**
-     * @var Secu
+     * @var SecuRepository
      */
     private $secu;
 
     /**
-     * @param Secu $secu
+     * @param \App\Repositories\Secu\SecuRepository $secu
      */
-    public function __construct(Secu $secu)
+    public function __construct(SecuRepository $secu)
     {
         $this->secu = $secu;
     }
@@ -43,7 +43,8 @@ class SecuController extends Controller
      */
     public function store(SecuRequest $request)
     {
-        $hash = $this->secu->store(json_encode($request->input('data')));
+        $this->secu->store($request->input('data'));
+        $hash = $this->secu->getHash();
 
         $hal = new Hal(route($this->getRouter()->currentRouteName()));
         $hal->setData([

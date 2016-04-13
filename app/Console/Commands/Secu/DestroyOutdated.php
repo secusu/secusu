@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Sёcu.
+ * This file is part of SЁCU.
  *
  * (c) CyberCog <support@cybercog.su>
  *
@@ -11,41 +11,41 @@
 
 namespace App\Console\Commands\Secu;
 
-use App\Models\Secu;
+use App\Repositories\Secu\SecuRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 /**
- * Class CleanOutdated.
+ * Class DestroyOutdated.
  * @package App\Console\Commands\Secu
  */
-class CleanOutdated extends Command
+class DestroyOutdated extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'secu:clean-outdated';
+    protected $signature = 'secu:destroy-outdated';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Clean outdated Sёcu records';
+    protected $description = 'Destroy outdated SЁCU records.';
 
     /**
-     * @var Secu
+     * @var SecuRepository
      */
     private $secu;
 
     /**
      * Create a new command instance.
      *
-     * @param Secu $secu
+     * @param SecuRepository $secu
      */
-    public function __construct(Secu $secu)
+    public function __construct(SecuRepository $secu)
     {
         parent::__construct();
 
@@ -59,7 +59,7 @@ class CleanOutdated extends Command
      */
     public function handle()
     {
-        $date = Carbon::now()->subDays(30)->format('Y-m-d H:i:s');
-        $this->secu->olderThan($date)->delete();
+        $timestamp = Carbon::now()->subDays(30)->format('Y-m-d H:i:s');
+        $this->secu->olderThan($timestamp)->delete();
     }
 }

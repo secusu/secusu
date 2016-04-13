@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Sёcu.
+ * This file is part of SЁCU.
  *
  * (c) CyberCog <support@cybercog.su>
  *
@@ -50,36 +50,14 @@ class Secu extends Model
     }
 
     /**
-     * Store data.
+     * Retrieve record.
      *
-     * @param string $data Data needed to be secured
-     * @return string Unique hash of record
-     */
-    public function store($data)
-    {
-        $secu = $this->create([
-            'data' => $data,
-        ]);
-
-        return $secu->attributes['hash'];
-    }
-
-    /**
-     * Retrieve record and destroy.
-     *
-     * @param $hash
+     * @param string $hash Unique Hash of encrypted record.
      * @return Secu $secu
      */
-    public function findByHashAndDestroy($hash)
+    public function findByHash($hash)
     {
-        $secu = $this->findByHash($hash);
-        if (!$secu) {
-            return false;
-        }
-
-        $secu->delete();
-
-        return $secu;
+        return $this->where('hash', $hash)->first();
     }
 
     /**
@@ -92,17 +70,6 @@ class Secu extends Model
     public function scopeOlderThan($query, $date)
     {
         return $query->where('created_at', '<', $date);
-    }
-
-    /**
-     * Retrieve record.
-     *
-     * @param string $hash Unique Hash of encrypted record.
-     * @return Secu $secu
-     */
-    private function findByHash($hash)
-    {
-        return $this->where('hash', $hash)->first();
     }
 
     /**
