@@ -12,6 +12,7 @@
 namespace App\Repositories\Secu;
 
 use App\Models\Secu;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class SecuRepository.
@@ -35,9 +36,19 @@ class SecuRepositoryEloquent implements SecuRepository
     }
 
     /**
+     * Get SЁCU id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->instance->id;
+    }
+
+    /**
      * Get SЁCU hash.
      *
-     * @return mixed
+     * @return string
      */
     public function getHash()
     {
@@ -86,5 +97,39 @@ class SecuRepositoryEloquent implements SecuRepository
     public function olderThan($timestamp)
     {
         return $this->secu->olderThan($timestamp);
+    }
+
+    /**
+     * Get SЁCU total created count.
+     *
+     * @return int
+     */
+    public function getSecuTotalCreatedCount()
+    {
+        if (DB::getDriverName() == 'sqlite') {
+            $schema = DB::table('SQLITE_SEQUENCE')
+                ->where('name', $this->secu->getTable())
+                ->select('seq')
+                ->first();
+
+            $sequence = intval($schema->seq);
+
+            return $sequence;
+        }
+
+        $schema = DB::table('INFORMATION_SCHEMA.TABLES')
+                    ->where('TABLE_SCHEMA', env('DB_DATABASE'))
+                    ->where('TABLE_NAME', $this->secu->getTable())
+                    ->select('AUTO_INCREMENT')
+                    ->first();
+
+        if (!$schema) {
+            return 0;
+        }
+
+        $sequence = intval($schema->AUTO_INCREMENT);
+        $sequence = $sequence - 1;
+
+        return $sequence;
     }
 }

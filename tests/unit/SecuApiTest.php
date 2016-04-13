@@ -93,13 +93,44 @@ class SecuApiTest extends TestCase
         $this->assertEquals($data, $retrievedSecu['data']);
     }
 
-    public function it_can_get_records_older_than_timestamp()
+    /** @test */
+    public function it_can_get_secu_total_created_count_on_store()
     {
         $data = 'test-data';
-        $secuCount = $this->secu->count();
+        $this->post('s', ['data' => $data]);
         $secu = $this->post('s', ['data' => $data])->response->content();
         $secu = json_decode($secu, true);
-        $this->get("s/{$secu['hash']}");
-        $this->assertEquals($secuCount, $this->secu->count());
+
+        // :TODO: Fix issue with mysql non empty db
+        $this->assertEquals(2, $secu['stat']['secu']['count']);
+    }
+
+    /** @test */
+    public function it_can_get_secu_total_created_count_on_retrieve()
+    {
+        $data = 'test-data';
+        $this->post('s', ['data' => $data]);
+        $secu = $this->post('s', ['data' => $data])->response->content();
+        $secu = json_decode($secu, true);
+
+        $secu = $this->get("s/{$secu['hash']}")->response->content();
+        $secu = json_decode($secu, true);
+
+        // :TODO: Fix issue with mysql non empty db
+        $this->assertEquals(2, $secu['stat']['secu']['count']);
+    }
+
+    /** @test */
+    public function it_can_get_stat_secu_total_created_count()
+    {
+        $data = 'test-data';
+        $this->post('s', ['data' => $data]);
+        $this->post('s', ['data' => $data]);
+
+        $stat = $this->get('stat')->response->content();
+        $stat = json_decode($stat, true);
+
+        // :TODO: Fix issue with mysql non empty db
+        $this->assertEquals(2, $stat['secu']['count']);
     }
 }
