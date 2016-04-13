@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Sёcu.
+ * This file is part of SЁCU.
  *
  * (c) CyberCog <support@cybercog.su>
  *
@@ -12,9 +12,9 @@
 use App\Models\Secu;
 
 /**
- * Class SecuTest.
+ * Class SecuApiTest.
  */
-class SecuTest extends TestCase
+class SecuApiTest extends TestCase
 {
     /**
      * @var Secu
@@ -91,5 +91,15 @@ class SecuTest extends TestCase
         $retrievedSecu = json_decode($retrievedSecu, true);
 
         $this->assertEquals($data, $retrievedSecu['data']);
+    }
+
+    public function it_can_get_records_older_than_timestamp()
+    {
+        $data = 'test-data';
+        $secuCount = $this->secu->count();
+        $secu = $this->post('s', ['data' => $data])->response->content();
+        $secu = json_decode($secu, true);
+        $this->get("s/{$secu['hash']}");
+        $this->assertEquals($secuCount, $this->secu->count());
     }
 }

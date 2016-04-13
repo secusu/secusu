@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of SЁCU.
+ *
+ * (c) CyberCog <support@cybercog.su>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
@@ -8,6 +17,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+/**
+ * Class AuthController.
+ * @package App\Http\Controllers\Auth
+ */
 class AuthController extends Controller
 {
     /*

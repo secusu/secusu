@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of Sёcu.
+ * This file is part of SЁCU.
  *
  * (c) CyberCog <support@cybercog.su>
  *

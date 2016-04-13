@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-         Commands\Secu\CleanOutdated::class,
+         Commands\Secu\DestroyOutdated::class,
     ];
 
     /**
