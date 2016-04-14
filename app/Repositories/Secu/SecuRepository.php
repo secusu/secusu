@@ -18,6 +18,13 @@ namespace App\Repositories\Secu;
 interface SecuRepository
 {
     /**
+     * Get SЁCU id.
+     *
+     * @return mixed
+     */
+    public function getId();
+
+    /**
      * Get SЁCU hash.
      *
      * @return mixed
@@ -47,4 +54,11 @@ interface SecuRepository
      * @return mixed
      */
     public function olderThan($timestamp);
+
+    /**
+     * Get SЁCU total created count.
+     *
+     * @return int
+     */
+    public function getSecuTotalCreatedCount();
 }
