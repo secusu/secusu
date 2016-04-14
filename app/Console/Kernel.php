@@ -24,6 +24,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('secu:clean-outdated')->everyMinute();
+        $schedule->command('secu:destroy-outdated')->everyMinute();
     }
 }
