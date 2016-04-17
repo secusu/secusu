@@ -1,10 +1,23 @@
 <?php
 
+/*
+ * This file is part of SЁCU.
+ *
+ * (c) CyberCog <support@cybercog.su>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+/**
+ * Class Kernel.
+ * @package App\Console
+ */
 class Kernel extends ConsoleKernel
 {
     /**

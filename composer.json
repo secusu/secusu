@@ -1,7 +1,7 @@
 {
     "name": "secu/secu",
-    "description": "Sёcu messages.",
-    "keywords": ["secu", "message"],
+    "description": "SЁCU messages.",
+    "keywords": ["secu", "message", "security", "telegram", "bot"],
     "license": "BSD-3-Clause",
     "type": "project",
     "require": {
@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "barryvdh/laravel-cors": "^0.8.0",
         "nocarrier/hal": "^0.9.12",
-        "irazasyed/telegram-bot-sdk": "^2.0"
+        "irazasyed/telegram-bot-sdk": "^2.0",
+        "predis/predis": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

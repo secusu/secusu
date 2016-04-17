@@ -49,11 +49,6 @@ class SecuController extends Controller
         $hal = new Hal(route($this->getRouter()->currentRouteName()));
         $hal->setData([
             'hash' => $hash,
-            'stat' => [
-                'secu' => [
-                    'count' => $this->secu->getId(),
-                ],
-            ],
         ]);
         $hal->addLink('show', route('secu.show', $hash));
 
@@ -85,20 +80,10 @@ class SecuController extends Controller
                     'salt' => str_random(11) . '=',
                     'ct' => str_random(mt_rand(2, 5000)) . '==',
                 ],
-                'stat' => [
-                    'secu' => [
-                        'count' => $this->secu->getSecuTotalCreatedCount(),
-                    ],
-                ],
             ]);
         } else {
             $hal->setData([
                 'data' => json_decode($secu->data, true),
-                'stat' => [
-                    'secu' => [
-                        'count' => $this->secu->getSecuTotalCreatedCount(),
-                    ],
-                ],
             ]);
         }
 
@@ -126,7 +111,7 @@ class SecuController extends Controller
                     ],
                 ],
                 'example' => [
-                    'data' => 'This is my super sёcure data!',
+                    'data' => 'This is my super SЁCUre data!',
                 ],
             ],
         ]);

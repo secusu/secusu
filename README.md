@@ -36,8 +36,8 @@ php artisan migrate
 
 ## Contributing
 
-Please refer to [CONTRIBUTING.md](https://github.com/secusu/secusu/blob/master/CONTRIBUTING.md) for information on how to contribute to Sёcu and its related projects.
+Please refer to [CONTRIBUTING.md](https://github.com/secusu/secusu/blob/master/CONTRIBUTING.md) for information on how to contribute to SЁCU and its related projects.
 
 ## License
 
-The Sёcu application is an open-sourced software licensed under the [BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
+The SЁCU application is an open-sourced software licensed under the [BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
