@@ -94,33 +94,6 @@ class SecuApiTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_secu_total_created_count_on_store()
-    {
-        $data = 'test-data';
-        $this->post('s', ['data' => $data]);
-        $secu = $this->post('s', ['data' => $data])->response->content();
-        $secu = json_decode($secu, true);
-
-        // :TODO: Fix issue with mysql non empty db
-        $this->assertEquals(2, $secu['stat']['secu']['count']);
-    }
-
-    /** @test */
-    public function it_can_get_secu_total_created_count_on_retrieve()
-    {
-        $data = 'test-data';
-        $this->post('s', ['data' => $data]);
-        $secu = $this->post('s', ['data' => $data])->response->content();
-        $secu = json_decode($secu, true);
-
-        $secu = $this->get("s/{$secu['hash']}")->response->content();
-        $secu = json_decode($secu, true);
-
-        // :TODO: Fix issue with mysql non empty db
-        $this->assertEquals(2, $secu['stat']['secu']['count']);
-    }
-
-    /** @test */
     public function it_can_get_stat_secu_total_created_count()
     {
         $data = 'test-data';

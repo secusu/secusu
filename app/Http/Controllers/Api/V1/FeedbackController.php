@@ -65,7 +65,7 @@ class FeedbackController extends Controller
                 ],
                 'example' => [
                     'email' => 'example@mail.com',
-                    'body' => 'Hello guys! Your project is very Sёcured!',
+                    'body' => 'Hello guys! Your project is very SЁCUred!',
                 ],
             ],
         ]);

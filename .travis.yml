@@ -8,6 +8,7 @@ php:
 before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source
+  - sudo redis-server /etc/redis/redis.conf --port 6379
 
 script:
   - vendor/bin/phpunit

@@ -14,6 +14,7 @@ namespace App\Http\Controllers\Api\V1\Bot;
 use App\Exceptions\Telegram\WebhookException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Secu\SecuRepository;
+use App\Services\CryptService;
 use App\Services\TelegramBotService;
 use Exception;
 use Illuminate\Support\Facades\File;
@@ -29,19 +30,32 @@ class TelegramController extends Controller
      * @var SecuRepository
      */
     private $secu;
+
     /**
      * @var TelegramBotService
      */
     private $telegram;
 
     /**
+     * @var
+     */
+    private $password;
+
+    /**
+     * @var CryptService
+     */
+    private $crypt;
+
+    /**
      * @param SecuRepository $secu
      * @param TelegramBotService $telegram
+     * @param CryptService $crypt
      */
-    public function __construct(SecuRepository $secu, TelegramBotService $telegram)
+    public function __construct(SecuRepository $secu, TelegramBotService $telegram, CryptService $crypt)
     {
         $this->secu = $secu;
         $this->telegram = $telegram;
+        $this->crypt = $crypt;
     }
 
     /**
@@ -72,12 +86,18 @@ class TelegramController extends Controller
             }
             $fromId = $from->getId();
 
+            $text = $this->parsePassword($text);
+
             if ($text == '/start') {
                 return $this->telegram->sendMessage($fromId, $this->getWelcomeTextResponse());
             } elseif ($text == '/stop') {
                 return;
             } elseif (!$text) {
                 return $this->telegram->sendMessage($fromId, $this->getEmptyTextReceivedResponse());
+            }
+
+            if ($this->password) {
+                $text = $this->crypt->encrypt($this->password, $text);
             }
 
             $this->secu->store([
@@ -122,5 +142,23 @@ class TelegramController extends Controller
         $file = File::get(resource_path('views/bot/success-text.md'));
 
         return sprintf($file, $url);
+    }
+
+    /**
+     * Try to find password set in message string.
+     *
+     * @param $text
+     */
+    private function parsePassword($text)
+    {
+        $pattern = '/^(\/p)\s+(\S+)\s+(.+)$/';
+        $subject = ltrim($text);
+        preg_match($pattern, $subject, $matches);
+        if (isset($matches[1], $matches[2], $matches[3])) {
+            $this->password = $matches[2];
+            $text = $matches[3];
+        }
+
+        return $text;
     }
 }

@@ -11,6 +11,7 @@
 
 namespace App\Models;
 
+use App\Events\SecuWasCreated;
 use App\Services\Hasher;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,6 +47,10 @@ class Secu extends Model
 
         static::creating(function (Secu $secu) {
             $secu->attributes['hash'] = $secu::generateHash();
+        });
+
+        static::created(function (Secu $secu) {
+            event(new SecuWasCreated($secu));
         });
     }
 
