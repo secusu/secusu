@@ -20,7 +20,7 @@ class Hasher
     /**
      * String from which the hash will be generated.
      */
-    private $allowedChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    private $allowedChars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789';
 
     /**
      * Generates a string with random characters.

@@ -30,6 +30,7 @@ class SecuWasCreated extends Event implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
+     * @param $secu
      * @return void
      */
     public function __construct($secu)
