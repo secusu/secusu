@@ -13,7 +13,7 @@ app.set('ipaddr', ENV.NODE_IP || 'localhost');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 
-if (ENV.NODE_SSL_KEY && ENV.NODE_SSL_CERT) {
+if (ENV.NODE_SSL_KEY_FILE && ENV.NODE_SSL_CERT_FILE) {
     var sslOptions = {
         key: (ENV.NODE_SSL_KEY_FILE ? fs.readFileSync(ENV.NODE_SSL_KEY_FILE) : null),
         cert: (ENV.NODE_SSL_CERT_FILE ? fs.readFileSync(ENV.NODE_SSL_CERT_FILE) : null),
