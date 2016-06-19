@@ -2,10 +2,14 @@
   "private": true,
   "devDependencies": {},
   "dependencies": {
+    "bcrypt": "^0.8.6",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "ioredis": "^1.15.1",
     "node-env-file": "^0.1.8",
+    "promise-redis": "0.0.5",
+    "q": "^1.4.1",
+    "redis": "^2.6.0-2",
     "sjcl": "^1.0.3",
     "socket.io": "^1.4.5"
   }

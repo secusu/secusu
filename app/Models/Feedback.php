@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     /**
-     * Database table name.
+     * The table associated with the model.
      *
      * @var string
      */

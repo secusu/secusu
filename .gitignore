@@ -3,5 +3,6 @@
 /public/storage
 Homestead.yaml
 Homestead.json
+npm-debug.log
 .env
 .php_cs.cache

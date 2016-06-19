@@ -26,7 +26,7 @@ class SecuRepositoryEloquent implements SecuRepository
     private $secu;
 
     /**
-     * @var Secu
+     * @var \App\Models\Secu
      */
     private $instance;
 

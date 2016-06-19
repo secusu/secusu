@@ -23,7 +23,7 @@ use Nocarrier\Hal;
 class SecuController extends Controller
 {
     /**
-     * @var SecuRepository
+     * @var \App\Repositories\Secu\SecuRepository
      */
     private $secu;
 

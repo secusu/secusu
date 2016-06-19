@@ -12,7 +12,7 @@
 namespace App\Models;
 
 use App\Events\SecuWasCreated;
-use App\Services\Hasher;
+use App\Traits\HasUniqueHashTrait;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,8 +21,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Secu extends Model
 {
+    use HasUniqueHashTrait;
+
     /**
-     * Database table name.
+     * The table associated with the model.
      *
      * @var string
      */
@@ -55,17 +57,6 @@ class Secu extends Model
     }
 
     /**
-     * Retrieve record.
-     *
-     * @param string $hash Unique Hash of encrypted record.
-     * @return Secu $secu
-     */
-    public function findByHash($hash)
-    {
-        return $this->where('hash', $hash)->first();
-    }
-
-    /**
      * Scope a query to only include active users.
      *
      * @param $query
@@ -75,31 +66,5 @@ class Secu extends Model
     public function scopeOlderThan($query, $date)
     {
         return $query->where('created_at', '<', $date);
-    }
-
-    /**
-     * Generates a unique hash.
-     *
-     * @return string 6 characters unique hash
-     */
-    private static function generateHash()
-    {
-        $hasher = new Hasher();
-        do {
-            $hash = $hasher->generate(6);
-        } while (static::hashExists($hash));
-
-        return $hash;
-    }
-
-    /**
-     * Checks if hash exists.
-     *
-     * @param string $hash Hash that is to be checked for existence in database
-     * @return bool true if the hash is found and false otherwise
-     */
-    private static function hashExists($hash)
-    {
-        return static::where('hash', $hash)->count() !== 0;
     }
 }
