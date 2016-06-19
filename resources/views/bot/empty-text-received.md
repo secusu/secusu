@@ -1,1 +1,1 @@
-At the moment only plain text can be encrypted.
+Sorry. Only plain text is allowed.
