@@ -1,7 +1,7 @@
 {
     "name": "secu/secu",
     "description": "SЁCU messages.",
-    "keywords": ["secu", "message", "security", "telegram", "bot"],
+    "keywords": ["secu", "message", "security", "chat", "privacy", "telegram", "bot"],
     "license": "BSD-3-Clause",
     "type": "project",
     "require": {
