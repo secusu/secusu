@@ -3,7 +3,7 @@
 /*
  * This file is part of SЁCU.
  *
- * (c) CyberCog <oss@cybercog.su>
+ * (c) CyberCog <open@cybercog.su>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
