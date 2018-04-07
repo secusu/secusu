@@ -6,3 +6,4 @@ Homestead.json
 npm-debug.log
 .env
 .php_cs.cache
+phpunit.xml

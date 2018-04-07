@@ -4,6 +4,22 @@
     "keywords": ["secu", "message", "security", "chat", "privacy", "telegram", "bot"],
     "license": "BSD-3-Clause",
     "type": "project",
+    "authors": [
+        {
+            "name": "Anton Komarev",
+            "email": "a.komarev@cybercog.su",
+            "homepage": "http://ell.folio.su",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://secu.su",
+    "support": {
+        "email": "open@cybercog.su",
+        "issues": "https://github.com/secusu/secusu/issues",
+        "wiki": "https://github.com/secusu/secusu/wiki",
+        "source": "https://github.com/secusu/secusu",
+        "docs": "https://github.com/secusu/secusu/wiki"
+    },
     "require": {
         "php": ">=5.6",
         "laravel/framework": "5.2.*",
