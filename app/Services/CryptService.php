@@ -13,10 +13,6 @@ namespace App\Services;
 
 use GuzzleHttp\Client as GuzzleHttp;
 
-/**
- * Class CryptService.
- * @package App\Services
- */
 class CryptService
 {
     /**

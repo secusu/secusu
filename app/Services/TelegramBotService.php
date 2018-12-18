@@ -13,10 +13,6 @@ namespace App\Services;
 
 use Telegram\Bot\Api;
 
-/**
- * Class TelegramBotService.
- * @package App\Services
- */
 class TelegramBotService
 {
     /**

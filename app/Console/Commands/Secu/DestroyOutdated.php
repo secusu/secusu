@@ -36,14 +36,14 @@ class DestroyOutdated extends Command
     protected $description = 'Destroy outdated SЁCU records.';
 
     /**
-     * @var SecuRepository
+     * @var \App\Repositories\Secu\SecuRepository
      */
     private $secu;
 
     /**
      * Create a new command instance.
      *
-     * @param SecuRepository $secu
+     * @param \App\Repositories\Secu\SecuRepository $secu
      */
     public function __construct(SecuRepository $secu)
     {

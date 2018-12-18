@@ -15,10 +15,6 @@ use App\Events\SecuWasCreated;
 use App\Traits\HasUniqueHashTrait;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Secu.
- * @package App\Models
- */
 class Secu extends Model
 {
     use HasUniqueHashTrait;

@@ -11,10 +11,6 @@
 
 namespace App\Services;
 
-/**
- * Class Hasher.
- * @package App\Services
- */
 class Hasher
 {
     /**

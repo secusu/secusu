@@ -13,10 +13,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Feedback.
- * @package App\Models
- */
 class Feedback extends Model
 {
     /**

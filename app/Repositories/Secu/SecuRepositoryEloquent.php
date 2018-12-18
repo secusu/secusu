@@ -14,10 +14,6 @@ namespace App\Repositories\Secu;
 use App\Models\Secu;
 use Illuminate\Support\Facades\DB;
 
-/**
- * Class SecuRepository.
- * @package App\Repositories\Secu
- */
 class SecuRepositoryEloquent implements SecuRepository
 {
     /**

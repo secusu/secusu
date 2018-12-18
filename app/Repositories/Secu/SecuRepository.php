@@ -11,10 +11,6 @@
 
 namespace App\Repositories\Secu;
 
-/**
- * Interface SecuRepository.
- * @package App\Repositories\Secu
- */
 interface SecuRepository
 {
     /**

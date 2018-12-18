@@ -13,10 +13,6 @@ namespace App\Traits;
 
 use App\Services\Hasher;
 
-/**
- * Class HasUniqueHashTrait.
- * @package App\Traits
- */
 trait HasUniqueHashTrait
 {
     /**

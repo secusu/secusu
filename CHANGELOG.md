@@ -2,6 +2,10 @@
 
 All notable changes to `secusu` will be documented in this file.
 
+## 3.0.0 - WIP
+
+- Upgraded to Laravel 5.7
+
 ## 2.0.2 - 2018-04-07
 
 - ([#28](https://github.com/secusu/secusu/pull/28)) Fix bcrypt installing on CentOS
@@ -43,4 +47,4 @@ All notable changes to `secusu` will be documented in this file.
 
 ## 1.0.0 - 2016-03-22
 
-- initial release
+- Initial release
