@@ -14,15 +14,17 @@ declare(strict_types=1);
 namespace App\Repositories\Secu;
 
 use App\Models\Secu;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 interface SecuRepository
 {
     /**
      * Get SЁCU id.
      *
-     * @return mixed
+     * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * Get SЁCU hash.
@@ -52,10 +54,10 @@ interface SecuRepository
     /**
      * Get records older than timestamp.
      *
-     * @param $timestamp
-     * @return mixed
+     * @param \Illuminate\Support\Carbon $timestamp
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function olderThan($timestamp);
+    public function olderThan(Carbon $timestamp): Builder;
 
     /**
      * Get SЁCU total created count.

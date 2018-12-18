@@ -15,6 +15,7 @@ namespace App\Services;
 
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
+use Telegram\Bot\Objects\Update;
 
 class TelegramBotService
 {
@@ -48,7 +49,7 @@ class TelegramBotService
         return $response;
     }
 
-    public function getWebhookUpdates()
+    public function getWebhookUpdates(): Update
     {
         return $this->telegram->getWebhookUpdates();
     }

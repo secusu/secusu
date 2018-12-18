@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Events\SecuWasCreated;
 use App\Traits\HasUniqueHashTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -37,7 +36,15 @@ class Secu extends Model
      */
     protected $fillable = [
         'data',
-        'hash',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'string',
     ];
 
     // TODO: Extract to SecuObserver
@@ -46,11 +53,7 @@ class Secu extends Model
         parent::boot();
 
         static::creating(function (Secu $secu) {
-            $secu->attributes['hash'] = $secu::generateHash();
-        });
-
-        static::created(function (Secu $secu) {
-            event(new SecuWasCreated($secu));
+            $secu->setAttribute('hash', $secu::generateHash());
         });
     }
 
@@ -63,7 +66,6 @@ class Secu extends Model
      */
     public function scopeOlderThan(Builder $query, Carbon $date): Builder
     {
-        // TODO: Cover with tests
         return $query->where('created_at', '<', $date);
     }
 }

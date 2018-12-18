@@ -35,14 +35,14 @@ class Action extends Controller
     private $telegram;
 
     /**
-     * @var
-     */
-    private $password;
-
-    /**
      * @var \App\Services\CryptService
      */
     private $crypt;
+
+    /**
+     * @var null|string
+     */
+    private $password;
 
     /**
      * @param \App\Repositories\Secu\SecuRepository $secu
@@ -86,9 +86,9 @@ class Action extends Controller
 
             $text = $this->parsePassword($text);
 
-            if ($text == '/start') {
+            if ($text === '/start') {
                 return $this->telegram->sendMessage($fromId, $this->getWelcomeTextResponse());
-            } elseif ($text == '/stop') {
+            } elseif ($text === '/stop') {
                 // TODO: (?) Should return message?
                 return;
             } elseif (!$text) {

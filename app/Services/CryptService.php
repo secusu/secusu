@@ -30,11 +30,11 @@ class CryptService
     /**
      * Encrypt data with provided password.
      *
-     * @param $password
-     * @param $message
+     * @param string $password
+     * @param string $message
      * @return string
      */
-    public function encrypt($password, $message)
+    public function encrypt(string $password, string $message): string
     {
         $response = $this->http->post(
             env('CRYPT_URL', 'http://127.0.0.1:3000') . '/encrypt',
@@ -53,11 +53,11 @@ class CryptService
     /**
      * Decrypt cipher using password.
      *
-     * @param $password
-     * @param $message
+     * @param string $password
+     * @param string $message
      * @return string
      */
-    public function decrypt($password, $message)
+    public function decrypt(string $password, string $message): string
     {
         $response = $this->http->post(
             env('CRYPT_URL', 'http://127.0.0.1:3000') . '/decrypt',

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Traits;
 
 use App\Services\Hasher;
+use Illuminate\Database\Eloquent\Model;
 
 trait HasUniqueHashTrait
 {
@@ -23,7 +24,7 @@ trait HasUniqueHashTrait
      * @param string $hash Unique Hash of encrypted record.
      * @return \Illuminate\Database\Eloquent\Model $model
      */
-    public function findByHash($hash)
+    public function findByHash(string $hash): ?Model
     {
         return $this->where('hash', $hash)->first();
     }
@@ -33,7 +34,7 @@ trait HasUniqueHashTrait
      *
      * @return string 6 characters unique hash
      */
-    private static function generateHash()
+    private static function generateHash(): string
     {
         $hasher = new Hasher();
         do {
@@ -49,7 +50,7 @@ trait HasUniqueHashTrait
      * @param string $hash Hash that is to be checked for existence in database
      * @return bool true if the hash is found and false otherwise
      */
-    private static function hashExists($hash)
+    private static function hashExists(string $hash): bool
     {
         return static::where('hash', $hash)->count() !== 0;
     }

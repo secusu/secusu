@@ -22,12 +22,12 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->secuRepository();
     }
 
-    private function secuRepository()
+    private function secuRepository(): void
     {
         $this->app->bind(
             \App\Repositories\Secu\SecuRepository::class,

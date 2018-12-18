@@ -33,6 +33,13 @@ class Action extends Controller
         return new Response($data);
     }
 
+    private function decodeRealData(Secu $secu): array
+    {
+        return [
+            'data' => json_decode($secu->getAttribute('data'), true),
+        ];
+    }
+
     private function generateFakeData(): array
     {
         return [
@@ -48,13 +55,6 @@ class Action extends Controller
                 'salt' => str_random(11) . '=',
                 'ct' => str_random(mt_rand(2, 5000)) . '==',
             ],
-        ];
-    }
-
-    private function decodeRealData(Secu $secu)
-    {
-        return [
-            'data' => json_decode($secu->getAttribute('data'), true),
         ];
     }
 }

@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace App\Repositories\Secu;
 
 use App\Models\Secu;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class SecuRepositoryEloquent implements SecuRepository
@@ -36,9 +38,9 @@ class SecuRepositoryEloquent implements SecuRepository
     /**
      * Get SЁCU id.
      *
-     * @return int
+     * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->instance->getAttribute('id');
     }
@@ -92,10 +94,10 @@ class SecuRepositoryEloquent implements SecuRepository
     /**
      * Get records older than timestamp.
      *
-     * @param $timestamp
-     * @return mixed
+     * @param \Illuminate\Support\Carbon $timestamp
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function olderThan($timestamp)
+    public function olderThan(Carbon $timestamp): Builder
     {
         return $this->secu->olderThan($timestamp);
     }
