@@ -31,7 +31,7 @@ Frontend could be found in [SЁCU web application repository](https://github.com
 
 ## Features
 
-- Uses only open source libraries
+- Uses only free open source libraries
 - Uses [Stanford Javascript Crypto Library](https://github.com/bitwiseshiftleft/sjcl)
 - Send password protected self-destructing data packages
 - Real-time encrypted chat server on node.js

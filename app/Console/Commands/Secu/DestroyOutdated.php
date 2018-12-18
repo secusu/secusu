@@ -14,13 +14,9 @@ declare(strict_types=1);
 namespace App\Console\Commands\Secu;
 
 use App\Repositories\Secu\SecuRepository;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
-/**
- * Class DestroyOutdated.
- * @package App\Console\Commands\Secu
- */
 class DestroyOutdated extends Command
 {
     /**
@@ -61,7 +57,7 @@ class DestroyOutdated extends Command
      */
     public function handle()
     {
-        $timestamp = Carbon::now()->subDays(30)->format('Y-m-d H:i:s');
+        $timestamp = Carbon::now()->subDays(30);
         $this->secu->olderThan($timestamp)->delete();
     }
 }
