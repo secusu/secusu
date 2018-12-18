@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -11,14 +13,11 @@
 
 namespace App\Models;
 
-use App\Events\SecuWasCreated;
 use App\Traits\HasUniqueHashTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
-/**
- * Class Secu.
- * @package App\Models
- */
 class Secu extends Model
 {
     use HasUniqueHashTrait;
@@ -37,33 +36,35 @@ class Secu extends Model
      */
     protected $fillable = [
         'data',
-        'hash',
     ];
 
     /**
-     * Model events.
+     * The attributes that should be cast to native types.
+     *
+     * @var array
      */
+    protected $casts = [
+        'id' => 'string',
+    ];
+
+    // TODO: Extract to SecuObserver
     public static function boot()
     {
         parent::boot();
 
         static::creating(function (Secu $secu) {
-            $secu->attributes['hash'] = $secu::generateHash();
-        });
-
-        static::created(function (Secu $secu) {
-            event(new SecuWasCreated($secu));
+            $secu->setAttribute('hash', $secu::generateHash());
         });
     }
 
     /**
      * Scope a query to only include active users.
      *
-     * @param $query
-     * @param $date
+     * @param \Illuminate\Database\Eloquent\Builder$query
+     * @param \Illuminate\Support\Carbon $date
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOlderThan($query, $date)
+    public function scopeOlderThan(Builder $query, Carbon $date): Builder
     {
         return $query->where('created_at', '<', $date);
     }

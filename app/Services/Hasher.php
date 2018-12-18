@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -11,10 +13,6 @@
 
 namespace App\Services;
 
-/**
- * Class Hasher.
- * @package App\Services
- */
 class Hasher
 {
     /**
@@ -27,7 +25,7 @@ class Hasher
      * @param int $length
      * @return string
      */
-    public function generate($length = 32)
+    public function generate(int $length = 32): string
     {
         $shuffled = str_shuffle($this->allowedChars);
         $hash = substr($shuffled, 0, $length);

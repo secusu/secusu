@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -11,12 +13,10 @@
 
 namespace App\Providers;
 
+use App\Models\Secu;
+use App\Observers\SecuObserver;
 use Illuminate\Support\ServiceProvider;
 
-/**
- * Class AppServiceProvider.
- * @package App\Providers
- */
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,9 +24,9 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
+        $this->registerObservers();
     }
 
     /**
@@ -34,8 +34,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
+    }
+
+    private function registerObservers(): void
+    {
+        Secu::observe(SecuObserver::class);
     }
 }

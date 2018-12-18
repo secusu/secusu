@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -11,54 +13,56 @@
 
 namespace App\Repositories\Secu;
 
-/**
- * Interface SecuRepository.
- * @package App\Repositories\Secu
- */
+use App\Models\Secu;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+
 interface SecuRepository
 {
     /**
      * Get SЁCU id.
      *
-     * @return mixed
+     * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * Get SЁCU hash.
      *
-     * @return mixed
+     * @return string
      */
-    public function getHash();
+    public function getHash(): string;
 
     /**
      * Store data.
      *
-     * @param string $data Data needed to be stored
-     * @return string Unique hash of record
+     * @param string|array $data Data needed to be stored
+     * @return void
      */
-    public function store($data);
+    public function store($data): void;
 
     /**
      * Retrieve record and destroy.
      *
      * @param $hash
      * @return mixed
+     *
+     * @throws \Exception
      */
-    public function findByHashAndDestroy($hash);
+    public function findByHashAndDestroy(string $hash): Secu;
 
     /**
      * Get records older than timestamp.
      *
-     * @param $timestamp
-     * @return mixed
+     * @param \Illuminate\Support\Carbon $timestamp
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function olderThan($timestamp);
+    public function olderThan(Carbon $timestamp): Builder;
 
     /**
      * Get SЁCU total created count.
      *
      * @return int
      */
-    public function getSecuTotalCreatedCount();
+    public function getSecuTotalCreatedCount(): int;
 }

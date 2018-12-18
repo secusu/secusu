@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -12,12 +14,10 @@
 namespace App\Repositories\Secu;
 
 use App\Models\Secu;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-/**
- * Class SecuRepository.
- * @package App\Repositories\Secu
- */
 class SecuRepositoryEloquent implements SecuRepository
 {
     /**
@@ -38,11 +38,11 @@ class SecuRepositoryEloquent implements SecuRepository
     /**
      * Get SЁCU id.
      *
-     * @return int
+     * @return string
      */
-    public function getId()
+    public function getId(): string
     {
-        return $this->instance->id;
+        return $this->instance->getAttribute('id');
     }
 
     /**
@@ -50,22 +50,22 @@ class SecuRepositoryEloquent implements SecuRepository
      *
      * @return string
      */
-    public function getHash()
+    public function getHash(): string
     {
-        return $this->instance->hash;
+        return $this->instance->getAttribute('hash');
     }
 
     /**
      * Store data.
      *
-     * @param string $data Data needed to be stored
-     * @return string Unique hash of record
+     * @param string|array $data Data needed to be stored
+     * @return void
      */
-    public function store($data)
+    public function store($data): void
     {
         $data = json_encode($data);
 
-        $this->instance = $this->secu->create([
+        $this->instance = $this->secu->query()->create([
             'data' => $data,
         ]);
     }
@@ -73,14 +73,17 @@ class SecuRepositoryEloquent implements SecuRepository
     /**
      * Retrieve record and destroy.
      *
-     * @param $hash
-     * @return Secu $secu
+     * @param string $hash
+     * @return \App\Models\Secu $secu
+     * @throws \Exception
      */
-    public function findByHashAndDestroy($hash)
+    public function findByHashAndDestroy(string $hash): Secu
     {
+        /** @var \App\Models\Secu $secu */
         $secu = $this->secu->findByHash($hash);
         if (!$secu) {
-            return false;
+            // TODO: Throw custom exception
+            throw new \RuntimeException();
         }
 
         $secu->delete();
@@ -91,10 +94,10 @@ class SecuRepositoryEloquent implements SecuRepository
     /**
      * Get records older than timestamp.
      *
-     * @param $timestamp
-     * @return mixed
+     * @param \Illuminate\Support\Carbon $timestamp
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function olderThan($timestamp)
+    public function olderThan(Carbon $timestamp): Builder
     {
         return $this->secu->olderThan($timestamp);
     }
@@ -104,9 +107,9 @@ class SecuRepositoryEloquent implements SecuRepository
      *
      * @return int
      */
-    public function getSecuTotalCreatedCount()
+    public function getSecuTotalCreatedCount(): int
     {
-        if (DB::getDriverName() == 'sqlite') {
+        if (DB::getDriverName() === 'sqlite') {
             $schema = DB::table('SQLITE_SEQUENCE')
                 ->where('name', $this->secu->getTable())
                 ->select('seq')
@@ -117,6 +120,7 @@ class SecuRepositoryEloquent implements SecuRepository
             return $sequence;
         }
 
+        // TODO: Use config instead of `env`
         $schema = DB::table('INFORMATION_SCHEMA.TABLES')
                     ->where('TABLE_SCHEMA', env('DB_DATABASE'))
                     ->where('TABLE_NAME', $this->secu->getTable())

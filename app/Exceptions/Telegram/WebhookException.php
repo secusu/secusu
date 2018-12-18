@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -13,10 +15,6 @@ namespace App\Exceptions\Telegram;
 
 use Exception;
 
-/**
- * Class WebhookException.
- * @package App\Exceptions\Telegram
- */
 class WebhookException extends Exception
 {
     public static function requestEmpty()

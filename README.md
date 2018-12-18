@@ -31,7 +31,7 @@ Frontend could be found in [SЁCU web application repository](https://github.com
 
 ## Features
 
-- Uses only open source libraries
+- Uses only free open source libraries
 - Uses [Stanford Javascript Crypto Library](https://github.com/bitwiseshiftleft/sjcl)
 - Send password protected self-destructing data packages
 - Real-time encrypted chat server on node.js
@@ -79,12 +79,12 @@ $ php artisan migrate
 If you need to run node.js chat server install JavaScript dependencies
 
 ```sh
-npm install
+$ npm install
 ```
 
 ### Add CRON entry to your OS
 
-```sh
+```
 * * * * * php /path/to/secu/artisan schedule:run >> /dev/null 2>&1
 ```
 

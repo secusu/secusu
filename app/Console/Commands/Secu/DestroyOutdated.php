@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -12,13 +14,9 @@
 namespace App\Console\Commands\Secu;
 
 use App\Repositories\Secu\SecuRepository;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
-/**
- * Class DestroyOutdated.
- * @package App\Console\Commands\Secu
- */
 class DestroyOutdated extends Command
 {
     /**
@@ -36,14 +34,14 @@ class DestroyOutdated extends Command
     protected $description = 'Destroy outdated SЁCU records.';
 
     /**
-     * @var SecuRepository
+     * @var \App\Repositories\Secu\SecuRepository
      */
     private $secu;
 
     /**
      * Create a new command instance.
      *
-     * @param SecuRepository $secu
+     * @param \App\Repositories\Secu\SecuRepository $secu
      */
     public function __construct(SecuRepository $secu)
     {
@@ -59,7 +57,7 @@ class DestroyOutdated extends Command
      */
     public function handle()
     {
-        $timestamp = Carbon::now()->subDays(30)->format('Y-m-d H:i:s');
+        $timestamp = Carbon::now()->subDays(30);
         $this->secu->olderThan($timestamp)->delete();
     }
 }

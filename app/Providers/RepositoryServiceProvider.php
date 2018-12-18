@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -13,10 +15,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-/**
- * Class RepositoryServiceProvider.
- * @package App\Providers
- */
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -24,12 +22,12 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->secuRepository();
     }
 
-    private function secuRepository()
+    private function secuRepository(): void
     {
         $this->app->bind(
             \App\Repositories\Secu\SecuRepository::class,

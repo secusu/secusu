@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of SЁCU.
  *
@@ -9,12 +11,10 @@
  * file that was distributed with this source code.
  */
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-/**
- * Class CreateSecuTable.
- */
 class CreateSecuTable extends Migration
 {
     /**
@@ -22,14 +22,13 @@ class CreateSecuTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('secu', function (Blueprint $table) {
             $table->increments('id');
             $table->string('hash', 250);
             $table->mediumText('data');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -38,8 +37,8 @@ class CreateSecuTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::drop('secu');
+        Schema::dropIfExists('secu');
     }
 }
