@@ -22,14 +22,13 @@ class CreateSecuTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('secu', function (Blueprint $table) {
             $table->increments('id');
             $table->string('hash', 250);
             $table->mediumText('data');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -38,8 +37,8 @@ class CreateSecuTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::drop('secu');
+        Schema::dropIfExists('secu');
     }
 }

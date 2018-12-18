@@ -22,14 +22,13 @@ class CreateFeedbackTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email')->nullable();
             $table->longText('body');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -38,8 +37,8 @@ class CreateFeedbackTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::drop('feedback');
+        Schema::dropIfExists('feedback');
     }
 }
