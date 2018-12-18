@@ -21,7 +21,7 @@ class Action extends Controller
 {
     public function __invoke(SecuRepository $secu, Request $request): ResponsableContract
     {
-        $secu->store($request->input('data', ''));
+        $secu->store($request->input('data'));
         $hash = $secu->getHash();
 
         return new Response($hash);

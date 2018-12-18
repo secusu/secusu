@@ -25,28 +25,29 @@ class ActionTest extends TestCase
     public function it_can_store_secu()
     {
         $data = 'test-data';
-        $secuCount = Secu::query()->count();
 
         $response = $this->postJson('s', [
             'data' => $data,
         ]);
 
         $response->assertStatus(201);
-        $this->assertSame($secuCount + 1, Secu::query()->count());
+        $secu = Secu::query()->latest()->first();
+        $this->assertSame(json_encode($data), $secu->getAttribute('data'));
     }
 
     /** @test */
-    public function it_has_hash_on_post()
+    public function it_can_store_secu_with_array_data()
     {
-        $data = 'test-data';
+        $data = [
+            'test' => 'array',
+        ];
 
         $response = $this->postJson('s', [
             'data' => $data,
         ]);
 
         $response->assertStatus(201);
-        $secu = json_decode($response->getContent(), true);
-        $this->assertArrayHasKey('hash', $secu);
-        $this->assertSame(6, strlen($secu['hash']));
+        $secu = Secu::query()->latest()->first();
+        $this->assertSame(json_encode($data), $secu->getAttribute('data'));
     }
 }

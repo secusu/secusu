@@ -83,4 +83,16 @@ class ActionTest extends TestCase
         $retrievedSecu = json_decode($response->getContent(), true);
         $this->assertSame($data, $retrievedSecu['data']);
     }
+
+    /** @test */
+    public function it_generates_fake_data_for_unknown_hash()
+    {
+        $response = $this->get("s/any-random-hash");
+
+        $response->assertStatus(200);
+        $result = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('data', $result);
+        $this->assertArrayHasKey('ct', $result['data']);
+        $this->assertNotEmpty($result['data']['ct']);
+    }
 }

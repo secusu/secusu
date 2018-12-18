@@ -25,14 +25,14 @@ class ActionTest extends TestCase
     public function it_can_store_feedback_without_email()
     {
         $body = 'test-feedback-without-email';
-        $count = Feedback::query()->count();
 
         $response = $this->postJson('feedback', [
             'body' => $body,
         ]);
 
         $response->assertStatus(201);
-        $this->assertSame($count + 1, Feedback::query()->count());
+        $feedback = Feedback::query()->latest()->first();
+        $this->assertSame($body, $feedback->getAttribute('body'));
     }
 
     /** @test */
@@ -40,7 +40,6 @@ class ActionTest extends TestCase
     {
         $body = 'test-feedback-with-email';
         $email = 'unit@secu.su';
-        $count = Feedback::query()->count();
 
         $response = $this->postJson('feedback', [
             'body' => $body,
@@ -48,6 +47,8 @@ class ActionTest extends TestCase
         ]);
 
         $response->assertStatus(201);
-        $this->assertSame($count + 1, Feedback::query()->count());
+        $feedback = Feedback::query()->latest()->first();
+        $this->assertSame($body, $feedback->getAttribute('body'));
+        $this->assertSame($email, $feedback->getAttribute('email'));
     }
 }

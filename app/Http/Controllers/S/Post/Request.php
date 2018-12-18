@@ -37,6 +37,7 @@ class Request extends FormRequest
         return [
             'data' => [
                 'required',
+//                'string',
             ],
         ];
     }

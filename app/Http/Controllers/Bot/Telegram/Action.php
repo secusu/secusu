@@ -65,7 +65,7 @@ class Action extends Controller
     public function __invoke(string $token)
     {
         try {
-            if ($token != env('TELEGRAM_BOT_WEBHOOK_TOKEN')) {
+            if ($token !== env('TELEGRAM_BOT_WEBHOOK_TOKEN')) {
                 throw WebhookException::tokenIncorrect($token);
             }
 
@@ -86,28 +86,33 @@ class Action extends Controller
 
             $text = $this->parsePassword($text);
 
+            if (!$text) {
+                return $this->telegram->sendMessage($fromId, $this->getEmptyTextReceivedResponse());
+            }
+
+            if ($text === '/stop') {
+                // TODO: Should return Message
+                return;
+            }
+
             if ($text === '/start') {
                 return $this->telegram->sendMessage($fromId, $this->getWelcomeTextResponse());
-            } elseif ($text === '/stop') {
-                // TODO: (?) Should return message?
-                return;
-            } elseif (!$text) {
-                return $this->telegram->sendMessage($fromId, $this->getEmptyTextReceivedResponse());
             }
 
             if ($this->password) {
                 $text = $this->crypt->encrypt($this->password, $text);
             }
 
-            // TODO: Fix it
             $this->secu->store([
                 'text' => $text,
             ]);
+            // TODO: Use `config` instead of `env`
             $url = sprintf('%s/%s', env('APP_URL'), $this->secu->getHash());
 
             return $this->telegram->sendMessage($fromId, $this->getSuccessTextResponse($url));
         } catch (Exception $e) {
             Log::error($e->getMessage());
+            // TODO: Return Message that error has happened
         }
     }
 

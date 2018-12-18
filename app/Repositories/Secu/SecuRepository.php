@@ -36,10 +36,10 @@ interface SecuRepository
     /**
      * Store data.
      *
-     * @param string $data Data needed to be stored
+     * @param string|array $data Data needed to be stored
      * @return void
      */
-    public function store(string $data): void;
+    public function store($data): void;
 
     /**
      * Retrieve record and destroy.

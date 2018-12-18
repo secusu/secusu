@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Events;
 
+use App\Models\Secu;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -23,22 +24,24 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class SecuWasCreated implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
-     * @var
+     * @var string
      */
     public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $secu
+     * @param \App\Models\Secu $secu
      * @return void
      */
-    public function __construct($secu)
+    public function __construct(Secu $secu)
     {
-        $this->id = $secu->id;
+        $this->id = $secu->getAttribute('id');
     }
 
     /**
