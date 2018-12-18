@@ -22,7 +22,10 @@ class HasherTest extends TestCase
     public function it_can_generate_hash_of_length()
     {
         $length = 6;
-        $hash = (new Hasher())->generate($length);
+        $hasher = new Hasher();
+
+        $hash = $hasher->generate($length);
+
         $this->assertSame($length, strlen($hash));
     }
 
@@ -31,8 +34,10 @@ class HasherTest extends TestCase
     {
         $length = 6;
         $hasher = new Hasher();
+
         $hash1 = $hasher->generate($length);
         $hash2 = $hasher->generate($length);
+
         $this->assertNotSame($hash1, $hash2);
     }
 }

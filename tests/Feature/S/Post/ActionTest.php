@@ -24,15 +24,16 @@ class ActionTest extends TestCase
         $data = 'test-data';
         $secuCount = Secu::query()->count();
 
-        $this->postJson('s', [
+        $response = $this->postJson('s', [
             'data' => $data,
         ]);
 
+        $response->assertStatus(201);
         $this->assertSame($secuCount + 1, Secu::query()->count());
     }
 
     /** @test */
-    public function it_can_return_hash_on_store()
+    public function it_has_hash_on_post()
     {
         $data = 'test-data';
 
@@ -40,60 +41,9 @@ class ActionTest extends TestCase
             'data' => $data,
         ]);
 
+        $response->assertStatus(201);
         $secu = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('hash', $secu);
-        $this->assertEquals(6, strlen($secu['hash']));
-    }
-
-    /** @test */
-    public function it_can_destroy_secu_on_retrieve()
-    {
-        $data = 'test-data';
-        $secuCount = Secu::query()->count();
-        $response = $this->postJson('s', [
-            'data' => $data,
-        ]);
-        $secu = json_decode($response->getContent(), true);
-
-        $this->get("s/{$secu['hash']}");
-
-        $this->assertSame($secuCount, Secu::query()->count());
-    }
-
-    /** @test */
-    public function it_can_preserve_string_content_integrity()
-    {
-        $data = 'test-data';
-        $response = $this->postJson('s', [
-            'data' => $data,
-        ]);
-        $secu = json_decode($response->getContent(), true);
-
-        $response = $this->get("s/{$secu['hash']}");
-
-        $retrievedSecu = json_decode($response->getContent(), true);
-        $this->assertSame($data, $retrievedSecu['data']);
-    }
-
-    /** @test */
-    public function it_can_preserve_array_content_integrity()
-    {
-        $data = [
-            'level1' => [
-                'level2' => [
-                    'level3' => 'test-data',
-                ],
-            ],
-            'author' => "Tom's data",
-        ];
-        $response = $this->postJson('s', [
-            'data' => $data,
-        ]);
-        $secu = json_decode($response->getContent(), true);
-
-        $response = $this->get("s/{$secu['hash']}");
-
-        $retrievedSecu = json_decode($response->getContent(), true);
-        $this->assertSame($data, $retrievedSecu['data']);
+        $this->assertSame(6, strlen($secu['hash']));
     }
 }

@@ -30,6 +30,6 @@ class Action extends Controller
         ]);
         $hal->addLink('show', route('secu.show', $hash));
 
-        return $hal->asJson();
+        return response($hal->asJson(), 201);
     }
 }

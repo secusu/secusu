@@ -24,10 +24,11 @@ class ActionTest extends TestCase
         $body = 'test-feedback-without-email';
         $count = Feedback::query()->count();
 
-        $this->postJson('feedback', [
+        $response = $this->postJson('feedback', [
             'body' => $body,
         ]);
 
+        $response->assertStatus(201);
         $this->assertSame($count + 1, Feedback::query()->count());
     }
 
@@ -38,11 +39,12 @@ class ActionTest extends TestCase
         $email = 'unit@secu.su';
         $count = Feedback::query()->count();
 
-        $this->postJson('feedback', [
+        $response = $this->postJson('feedback', [
             'body' => $body,
             'email' => $email,
         ]);
 
+        $response->assertStatus(201);
         $this->assertSame($count + 1, Feedback::query()->count());
     }
 }

@@ -28,6 +28,6 @@ class Action extends Controller
             'success' => true,
         ]);
 
-        return $hal->asJson();
+        return response($hal->asJson(), 201);
     }
 }

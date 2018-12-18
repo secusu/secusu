@@ -22,13 +22,13 @@ class ActionTest extends TestCase
     /** @test */
     public function it_can_get_stat_secu_total_created_count()
     {
-        $data = 'test-data';
-        $this->post('s', ['data' => $data]);
-        $this->post('s', ['data' => $data]);
-        $count = (new SecuRepositoryEloquent(new Secu()))->getSecuTotalCreatedCount();
+        factory(Secu::class, 2)->create();
+        $repository = (new SecuRepositoryEloquent(new Secu()));
+        $count = $repository->getSecuTotalCreatedCount();
 
         $response = $this->getJson('stat');
 
+        $response->assertStatus(200);
         $stat = json_decode($response->getContent(), true);
         $this->assertSame($count, $stat['secu']['count']);
     }
