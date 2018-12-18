@@ -24,6 +24,7 @@ class Action extends Controller
     {
         $hal = new Hal(route($request->route()->getName(), $hash));
 
+        // TODO: Fix unhandled exception
         $secu = $secu->findByHashAndDestroy($hash);
         if (!$secu) {
             $hal->setData([

@@ -14,11 +14,12 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Telegram\Bot\Api;
+use Telegram\Bot\Objects\Message;
 
 class TelegramBotService
 {
     /**
-     * @var Api
+     * @var \Telegram\Bot\Api
      */
     private $telegram;
 
@@ -31,11 +32,11 @@ class TelegramBotService
      * Send message to user.
      *
      * @param $chatId
-     * @param $text
+     * @param string  $text
      * @param bool $disablePreview
      * @return \Telegram\Bot\Objects\Message
      */
-    public function sendMessage($chatId, $text, $disablePreview = true)
+    public function sendMessage($chatId, string $text, bool $disablePreview = true): Message
     {
         $response = $this->telegram->sendMessage([
             'chat_id' => $chatId,

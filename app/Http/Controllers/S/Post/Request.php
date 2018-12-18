@@ -35,7 +35,9 @@ class Request extends FormRequest
     public function rules(): array
     {
         return [
-            'data' => 'required',
+            'data' => [
+                'required',
+            ],
         ];
     }
 }

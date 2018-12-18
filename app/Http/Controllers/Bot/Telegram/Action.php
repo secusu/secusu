@@ -59,10 +59,10 @@ class Action extends Controller
     /**
      * Bot listener.
      *
-     * @param $token
+     * @param string $token
      * @return \Telegram\Bot\Objects\Message
      */
-    public function __invoke($token)
+    public function __invoke(string $token)
     {
         try {
             if ($token != env('TELEGRAM_BOT_WEBHOOK_TOKEN')) {
@@ -89,6 +89,7 @@ class Action extends Controller
             if ($text == '/start') {
                 return $this->telegram->sendMessage($fromId, $this->getWelcomeTextResponse());
             } elseif ($text == '/stop') {
+                // TODO: (?) Should return message?
                 return;
             } elseif (!$text) {
                 return $this->telegram->sendMessage($fromId, $this->getEmptyTextReceivedResponse());
@@ -98,6 +99,7 @@ class Action extends Controller
                 $text = $this->crypt->encrypt($this->password, $text);
             }
 
+            // TODO: Fix it
             $this->secu->store([
                 'text' => $text,
             ]);
@@ -114,7 +116,7 @@ class Action extends Controller
      *
      * @return string
      */
-    private function getWelcomeTextResponse()
+    private function getWelcomeTextResponse(): string
     {
         return File::get(resource_path('views/bot/welcome.md'));
     }
@@ -124,7 +126,7 @@ class Action extends Controller
      *
      * @return string
      */
-    private function getEmptyTextReceivedResponse()
+    private function getEmptyTextReceivedResponse(): string
     {
         return File::get(resource_path('views/bot/empty-text-received.md'));
     }
@@ -132,10 +134,10 @@ class Action extends Controller
     /**
      * Generate bot success proceed message.
      *
-     * @param $url
+     * @param string $url
      * @return string
      */
-    private function getSuccessTextResponse($url)
+    private function getSuccessTextResponse(string $url): string
     {
         $file = File::get(resource_path('views/bot/success-text.md'));
 
@@ -148,7 +150,7 @@ class Action extends Controller
      * @param string $text
      * @return string
      */
-    private function parsePassword($text)
+    private function parsePassword(string $text): string
     {
         $pattern = '/^(\/p)\s+(\S+)\s+(.+)$/';
         $subject = ltrim($text);

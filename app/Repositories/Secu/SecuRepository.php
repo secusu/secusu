@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace App\Repositories\Secu;
 
+use App\Models\Secu;
+
 interface SecuRepository
 {
     /**
@@ -25,25 +27,27 @@ interface SecuRepository
     /**
      * Get SЁCU hash.
      *
-     * @return mixed
+     * @return string
      */
-    public function getHash();
+    public function getHash(): string;
 
     /**
      * Store data.
      *
      * @param string $data Data needed to be stored
-     * @return string Unique hash of record
+     * @return void
      */
-    public function store($data);
+    public function store(string $data): void;
 
     /**
      * Retrieve record and destroy.
      *
      * @param $hash
      * @return mixed
+     *
+     * @throws \Exception
      */
-    public function findByHashAndDestroy($hash);
+    public function findByHashAndDestroy(string $hash): Secu;
 
     /**
      * Get records older than timestamp.
@@ -58,5 +62,5 @@ interface SecuRepository
      *
      * @return int
      */
-    public function getSecuTotalCreatedCount();
+    public function getSecuTotalCreatedCount(): int;
 }

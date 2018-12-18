@@ -40,7 +40,7 @@ class SecuRepositoryEloquent implements SecuRepository
      */
     public function getId()
     {
-        return $this->instance->id;
+        return $this->instance->getAttribute('id');
     }
 
     /**
@@ -48,22 +48,22 @@ class SecuRepositoryEloquent implements SecuRepository
      *
      * @return string
      */
-    public function getHash()
+    public function getHash(): string
     {
-        return $this->instance->hash;
+        return $this->instance->getAttribute('hash');
     }
 
     /**
      * Store data.
      *
      * @param string $data Data needed to be stored
-     * @return string Unique hash of record
+     * @return void
      */
-    public function store($data)
+    public function store(string $data): void
     {
         $data = json_encode($data);
 
-        $this->instance = $this->secu->create([
+        $this->instance = $this->secu->query()->create([
             'data' => $data,
         ]);
     }
@@ -71,13 +71,16 @@ class SecuRepositoryEloquent implements SecuRepository
     /**
      * Retrieve record and destroy.
      *
-     * @param $hash
-     * @return Secu $secu
+     * @param string $hash
+     * @return \App\Models\Secu $secu
+     * @throws \Exception
      */
-    public function findByHashAndDestroy($hash)
+    public function findByHashAndDestroy(string $hash): Secu
     {
+        /** @var \App\Models\Secu $secu */
         $secu = $this->secu->findByHash($hash);
         if (!$secu) {
+            // TODO: Throw exception
             return false;
         }
 
@@ -102,9 +105,9 @@ class SecuRepositoryEloquent implements SecuRepository
      *
      * @return int
      */
-    public function getSecuTotalCreatedCount()
+    public function getSecuTotalCreatedCount(): int
     {
-        if (DB::getDriverName() == 'sqlite') {
+        if (DB::getDriverName() === 'sqlite') {
             $schema = DB::table('SQLITE_SEQUENCE')
                 ->where('name', $this->secu->getTable())
                 ->select('seq')
@@ -115,6 +118,7 @@ class SecuRepositoryEloquent implements SecuRepository
             return $sequence;
         }
 
+        // TODO: Use config instead of `env`
         $schema = DB::table('INFORMATION_SCHEMA.TABLES')
                     ->where('TABLE_SCHEMA', env('DB_DATABASE'))
                     ->where('TABLE_NAME', $this->secu->getTable())
