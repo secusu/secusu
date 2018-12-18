@@ -79,12 +79,12 @@ $ php artisan migrate
 If you need to run node.js chat server install JavaScript dependencies
 
 ```sh
-npm install
+$ npm install
 ```
 
 ### Add CRON entry to your OS
 
-```sh
+```
 * * * * * php /path/to/secu/artisan schedule:run >> /dev/null 2>&1
 ```
 
