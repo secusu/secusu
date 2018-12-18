@@ -14,15 +14,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Feedback\Options;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
-use Nocarrier\Hal;
 
 class Action extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): ResponsableContract
     {
-        $hal = new Hal($request->route()->uri());
-        $hal->setData([
+        $data = [
             'POST' => [
                 'description' => 'Post a feedback',
                 'parameters' => [
@@ -42,8 +41,8 @@ class Action extends Controller
                     'body' => 'Hello guys! Your project is very SЁCUred!',
                 ],
             ],
-        ]);
+        ];
 
-        return $hal->asJson();
+        return new Response($data);
     }
 }

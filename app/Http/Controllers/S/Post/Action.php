@@ -15,21 +15,15 @@ namespace App\Http\Controllers\S\Post;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Secu\SecuRepository;
-use Nocarrier\Hal;
+use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
 class Action extends Controller
 {
-    public function __invoke(SecuRepository $secu, Request $request)
+    public function __invoke(SecuRepository $secu, Request $request): ResponsableContract
     {
         $secu->store($request->input('data', ''));
         $hash = $secu->getHash();
 
-        $hal = new Hal($request->route()->uri());
-        $hal->setData([
-            'hash' => $hash,
-        ]);
-        $hal->addLink('show', route('secu.show', $hash));
-
-        return response($hal->asJson(), 201);
+        return new Response($hash);
     }
 }

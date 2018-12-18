@@ -15,22 +15,21 @@ namespace App\Http\Controllers\Stat\Collect;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Secu\SecuRepository;
+use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
-use Nocarrier\Hal;
 
 class Action extends Controller
 {
-    public function __invoke(SecuRepository $secu, Request $request)
+    public function __invoke(SecuRepository $secu, Request $request): ResponsableContract
     {
         $secuCreatedCount = $secu->getSecuTotalCreatedCount();
 
-        $hal = new Hal($request->route()->uri());
-        $hal->setData([
+        $data = [
             'secu' => [
                 'count' => $secuCreatedCount,
             ],
-        ]);
+        ];
 
-        return $hal->asJson();
+        return new Response($data);
     }
 }

@@ -15,19 +15,18 @@ namespace App\Http\Controllers\Feedback\Post;
 
 use App\Http\Controllers\Controller;
 use App\Models\Feedback;
-use Nocarrier\Hal;
+use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
 class Action extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): ResponsableContract
     {
         Feedback::query()->create($request->validated());
 
-        $hal = new Hal($request->route()->uri());
-        $hal->setData([
+        $data = [
             'success' => true,
-        ]);
+        ];
 
-        return response($hal->asJson(), 201);
+        return new Response($data);
     }
 }

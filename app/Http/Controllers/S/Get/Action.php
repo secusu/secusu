@@ -14,41 +14,47 @@ declare(strict_types=1);
 namespace App\Http\Controllers\S\Get;
 
 use App\Http\Controllers\Controller;
+use App\Models\Secu;
 use App\Repositories\Secu\SecuRepository;
+use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
-use Nocarrier\Hal;
 
 class Action extends Controller
 {
-    public function __invoke(string $hash, SecuRepository $secu, Request $request)
+    public function __invoke(string $hash, SecuRepository $secu, Request $request): ResponsableContract
     {
-        $hal = new Hal(route($request->route()->getName(), $hash));
-
-        // TODO: Fix unhandled exception
-        $secu = $secu->findByHashAndDestroy($hash);
-        if (!$secu) {
-            $hal->setData([
-                'data' => [
-                    'iv' => str_random(22) . '==',
-                    'v' => 1,
-                    'iter' => 4096,
-                    'ks' => 256,
-                    'ts' => 128,
-                    'mode' => 'gcm',
-                    'adata' => 'U8OLQ1U=',
-                    'cipher' => 'aes',
-                    'salt' => str_random(11) . '=',
-                    'ct' => str_random(mt_rand(2, 5000)) . '==',
-                ],
-            ]);
-        } else {
-            $hal->setData([
-                'data' => json_decode($secu->data, true),
-            ]);
+        try {
+            $secu = $secu->findByHashAndDestroy($hash);
+            $data = $this->decodeRealData($secu);
+        } catch (\Throwable $exception) {
+            $data = $this->generateFakeData();
         }
 
-        $hal->addLink('store', route('secu.store'));
+        return new Response($data);
+    }
 
-        return $hal->asJson();
+    private function generateFakeData(): array
+    {
+        return [
+            'data' => [
+                'iv' => str_random(22) . '==',
+                'v' => 1,
+                'iter' => 4096,
+                'ks' => 256,
+                'ts' => 128,
+                'mode' => 'gcm',
+                'adata' => 'U8OLQ1U=',
+                'cipher' => 'aes',
+                'salt' => str_random(11) . '=',
+                'ct' => str_random(mt_rand(2, 5000)) . '==',
+            ],
+        ];
+    }
+
+    private function decodeRealData(Secu $secu)
+    {
+        return [
+            'data' => json_decode($secu->getAttribute('data'), true),
+        ];
     }
 }

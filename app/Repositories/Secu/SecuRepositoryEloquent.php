@@ -80,8 +80,8 @@ class SecuRepositoryEloquent implements SecuRepository
         /** @var \App\Models\Secu $secu */
         $secu = $this->secu->findByHash($hash);
         if (!$secu) {
-            // TODO: Throw exception
-            return false;
+            // TODO: Throw custom exception
+            throw new \RuntimeException();
         }
 
         $secu->delete();
