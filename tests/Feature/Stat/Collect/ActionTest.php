@@ -15,10 +15,13 @@ namespace Tests\Feature\Stat\Collect;
 
 use App\Models\Secu;
 use App\Repositories\Secu\SecuRepositoryEloquent;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ActionTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function it_can_get_stat_secu_total_created_count()
     {

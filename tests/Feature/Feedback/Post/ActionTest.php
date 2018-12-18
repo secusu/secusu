@@ -14,10 +14,13 @@ declare(strict_types=1);
 namespace Tests\Feature\Feedback\Post;
 
 use App\Models\Feedback;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ActionTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function it_can_store_feedback_without_email()
     {

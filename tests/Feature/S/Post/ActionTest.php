@@ -14,10 +14,13 @@ declare(strict_types=1);
 namespace Tests\Feature\S\Post;
 
 use App\Models\Secu;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ActionTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function it_can_store_secu()
     {
