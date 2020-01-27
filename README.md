@@ -1,7 +1,7 @@
 # SЁCU
 
 <p align="center">
-<img src="https://cloud.githubusercontent.com/assets/1849174/14016031/cbd32b58-f1d6-11e5-9a18-864e660b9af5.png">
+<img src="https://user-images.githubusercontent.com/1849174/72083735-5dd72f00-3313-11ea-9ea1-1a5b57548232.png">
 </p>
 
 [![Gitter chat](https://badges.gitter.im/secusu/secusu.svg)](https://gitter.im/secusu/secusu)
