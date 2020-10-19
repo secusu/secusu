@@ -4,7 +4,7 @@
 <img src="https://user-images.githubusercontent.com/1849174/72083735-5dd72f00-3313-11ea-9ea1-1a5b57548232.png">
 </p>
 
-[![Gitter chat](https://badges.gitter.im/secusu/secusu.svg)](https://gitter.im/secusu/secusu)
+[![Discord](https://img.shields.io/static/v1?logo=discord&label=&message=Discord&color=36393f&style=flat-square)](https://discord.gg/rYkeBjp)
 [![Build Status](https://travis-ci.org/secusu/secusu.svg)](https://travis-ci.org/secusu/secusu)
 [![Latest Stable Version](https://poser.pugx.org/secu/secu/version)](https://packagist.org/packages/secu/secu)
 [![License](https://poser.pugx.org/secu/secu/license)](https://github.com/secusu/secusu/blob/master/LICENSE)
