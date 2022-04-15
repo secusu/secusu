@@ -1,0 +1,1 @@
+* * * * * cd /app && php artisan schedule:run >> /var/log/cron/schedule-run.log 2>&1

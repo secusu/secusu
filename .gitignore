@@ -1,3 +1,6 @@
+/.docker-volume-postgres
+/.docker-volume-redis
+/.docker-volume-ssl-certs
 /node_modules
 /public/hot
 /public/storage

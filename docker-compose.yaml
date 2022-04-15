@@ -1,0 +1,100 @@
+version: "3.9"
+services:
+  app:
+    container_name: ${PROJECT_NAME}-app
+    image: secu-app
+    build:
+      context: ./
+      dockerfile: ./.docker/php/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - postgres
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ./.docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+      - ./.docker/php/crontab:/etc/crontabs/www-data:ro
+      - ./.docker/php/secu-supervisor.ini:/etc/supervisor/conf.d/secu-supervisor.ini:ro
+      - ./storage/logs/cron:/var/log/cron
+      - ./storage/logs/supervisor:/var/log/supervisor
+    networks:
+      - secu
+
+  nginx:
+    container_name: ${PROJECT_NAME}-nginx
+    image: nginx:1.21-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      VIRTUAL_HOST: secu.localhost
+    volumes:
+      - ./.docker/nginx/secu.conf:/etc/nginx/nginx.conf:ro
+      - ./public:/app/public:ro
+      - ./.docker-volume-ssl-certs:/usr/share/certs
+    networks:
+      - secu
+
+  postgres:
+    container_name: ${PROJECT_NAME}-postgres
+    image: postgres:13.4-alpine
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT:-5432}:${DB_PORT:-5432}"
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    volumes:
+      - ./.docker-volume-postgres:/var/lib/postgresql/data
+    networks:
+      - secu
+
+  redis:
+    container_name: ${PROJECT_NAME}-redis
+    image: redis:6.0-alpine
+    restart: unless-stopped
+    command: "--port ${REDIS_PORT:-6379}"
+    ports:
+      - "${REDIS_PORT:-6379}:${REDIS_PORT:-6379}"
+    volumes:
+      - ./.docker-volume-redis:/data
+    networks:
+      - secu
+
+  nodejs:
+    container_name: ${PROJECT_NAME}-nodejs
+    image: node:12-alpine
+    restart: "no"
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  mkcert:
+    container_name: ${PROJECT_NAME}-mkcert
+    image: aegypius/mkcert-for-nginx-proxy
+    restart: "no"
+    volumes:
+      - ./.docker-volume-ssl-certs:/app/certs:rw
+      - ~/.mozilla/firefox:/root/.mozilla/firefox:rw
+      - ~/.pki/nssdb:/root/.pki/nssdb:rw
+      - ${CA_STORE:-/usr/local/share/ca-certificates}:/usr/local/share/ca-certificates
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - secu
+
+volumes:
+  .docker-volume-postgres:
+    driver: local
+  .docker-volume-redis:
+    driver: local
+  .docker-volume-ssl-certs:
+    driver: local
+
+networks:
+  secu:
+    driver: bridge
