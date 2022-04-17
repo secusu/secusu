@@ -1,7 +1,7 @@
 # ----------------------
 # The FPM base container
 # ----------------------
-FROM php:7.2-fpm-alpine AS dev
+FROM php:7.4-fpm-alpine AS dev
 
 # Install dev dependencies
 RUN apk add --no-cache --virtual .build-deps \
