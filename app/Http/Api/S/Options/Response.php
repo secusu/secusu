@@ -19,22 +19,23 @@ use Nocarrier\Hal;
 
 class Response implements Responsable
 {
-    /**
-     * @var array
-     */
-    private $data;
+    private array $data;
 
-    public function __construct(array $data)
-    {
+    public function __construct(
+        array $data
+    ) {
         $this->data = $data;
     }
-    public function toResponse($request)
-    {
+
+    public function toResponse(
+        $request
+    ) {
         return $this->toJson($request);
     }
 
-    private function toJson(Request $request)
-    {
+    private function toJson(
+        Request $request
+    ) {
         $hal = new Hal($request->url());
         $hal->setData($this->data);
 

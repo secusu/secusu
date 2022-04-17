@@ -19,9 +19,18 @@ use Illuminate\Http\Request;
 
 class Action
 {
-    public function __invoke(SecuRepository $secu, Request $request): ResponsableContract
-    {
-        $secuCreatedCount = $secu->getSecuTotalCreatedCount();
+    private SecuRepository $secuRepository;
+
+    public function __construct(
+        SecuRepository $secuRepository
+    ) {
+        $this->secuRepository = $secuRepository;
+    }
+
+    public function __invoke(
+        Request $request
+    ): ResponsableContract {
+        $secuCreatedCount = $this->secuRepository->getSecuTotalCreatedCount();
 
         $data = [
             'secu' => [

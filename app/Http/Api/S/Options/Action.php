@@ -18,8 +18,9 @@ use Illuminate\Http\Request;
 
 class Action
 {
-    public function __invoke(Request $request): ResponsableContract
-    {
+    public function __invoke(
+        Request $request
+    ): ResponsableContract {
         $data = [
             'POST' => [
                 'description' => 'Create a SЁCU',

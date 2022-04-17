@@ -22,22 +22,23 @@ use function route;
 
 class Response implements Responsable
 {
-    /**
-     * @var string
-     */
-    private $hash;
+    private string $hash;
 
-    public function __construct(string $hash)
-    {
+    public function __construct(
+        string $hash
+    ) {
         $this->hash = $hash;
     }
-    public function toResponse($request)
-    {
+
+    public function toResponse(
+        $request
+    ) {
         return response($this->toJson($request), 201);
     }
 
-    private function toJson(Request $request)
-    {
+    private function toJson(
+        Request $request
+    ) {
         $hal = new Hal($request->route()->uri());
         $hal->setData([
             'hash' => $this->hash,

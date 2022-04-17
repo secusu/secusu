@@ -16,16 +16,26 @@ namespace App\Http\Api\S\Get;
 use App\Models\Secu;
 use App\Repositories\Secu\SecuRepository;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
-use Illuminate\Http\Request;
 
 use function str_random;
 
 class Action
 {
-    public function __invoke(string $hash, SecuRepository $secu, Request $request): ResponsableContract
-    {
+    private SecuRepository $secuRepository;
+
+    public function __construct(
+        SecuRepository $secuRepository
+    ) {
+        $this->secuRepository = $secuRepository;
+    }
+
+    public function __invoke(
+        Request $request
+    ): ResponsableContract {
+        $hash = $request->getHash();
+
         try {
-            $secu = $secu->findByHashAndDestroy($hash);
+            $secu = $this->secuRepository->findByHashAndDestroy($hash);
             $data = $this->decodeRealData($secu);
         } catch (\Throwable $exception) {
             $data = $this->generateFakeData();
@@ -34,8 +44,9 @@ class Action
         return new Response($data);
     }
 
-    private function decodeRealData(Secu $secu): array
-    {
+    private function decodeRealData(
+        Secu $secu
+    ): array {
         return [
             'data' => json_decode($secu->getAttribute('data'), true),
         ];

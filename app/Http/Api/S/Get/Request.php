@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\S\Post;
+namespace App\Http\Api\S\Get;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -31,10 +31,11 @@ class Request extends FormRequest
     public function rules(): array
     {
         return [
-            'data' => [
-                'required',
-//                'string',
-            ],
         ];
+    }
+
+    public function getHash(): string
+    {
+        return $this->route('hash');
     }
 }

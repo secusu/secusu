@@ -26,33 +26,19 @@ use function resource_path;
 
 class Action
 {
-    /**
-     * @var \App\Repositories\Secu\SecuRepository
-     */
-    private $secu;
+    private SecuRepository $secu;
 
-    /**
-     * @var \App\Services\TelegramBotService
-     */
-    private $telegram;
+    private TelegramBotService $telegram;
 
-    /**
-     * @var \App\Services\CryptService
-     */
-    private $crypt;
+    private CryptService $crypt;
 
-    /**
-     * @var null|string
-     */
-    private $password;
+    private ?string $password;
 
-    /**
-     * @param \App\Repositories\Secu\SecuRepository $secu
-     * @param \App\Services\TelegramBotService $telegram
-     * @param \App\Services\CryptService $crypt
-     */
-    public function __construct(SecuRepository $secu, TelegramBotService $telegram, CryptService $crypt)
-    {
+    public function __construct(
+        SecuRepository $secu,
+        TelegramBotService $telegram,
+        CryptService $crypt
+    ) {
         $this->secu = $secu;
         $this->telegram = $telegram;
         $this->crypt = $crypt;
@@ -120,8 +106,6 @@ class Action
 
     /**
      * Generate bot welcome text.
-     *
-     * @return string
      */
     private function getWelcomeTextResponse(): string
     {
@@ -130,8 +114,6 @@ class Action
 
     /**
      * Generate bot received empty text.
-     *
-     * @return string
      */
     private function getEmptyTextReceivedResponse(): string
     {
@@ -140,9 +122,6 @@ class Action
 
     /**
      * Generate bot success proceed message.
-     *
-     * @param string $url
-     * @return string
      */
     private function getSuccessTextResponse(string $url): string
     {
@@ -153,9 +132,6 @@ class Action
 
     /**
      * Try to find password set in message string.
-     *
-     * @param string $text
-     * @return string
      */
     private function parsePassword(string $text): string
     {

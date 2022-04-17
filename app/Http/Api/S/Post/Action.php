@@ -18,10 +18,19 @@ use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
 class Action
 {
-    public function __invoke(SecuRepository $secu, Request $request): ResponsableContract
-    {
-        $secu->store($request->input('data'));
-        $hash = $secu->getHash();
+    private SecuRepository $secuRepository;
+
+    public function __construct(
+        SecuRepository $secuRepository
+    ) {
+        $this->secuRepository = $secuRepository;
+    }
+
+    public function __invoke(
+        Request $request
+    ): ResponsableContract {
+        $this->secuRepository->store($request->input('data'));
+        $hash = $this->secuRepository->getHash();
 
         return new Response($hash);
     }

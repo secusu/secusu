@@ -18,8 +18,9 @@ use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
 class Action
 {
-    public function __invoke(Request $request): ResponsableContract
-    {
+    public function __invoke(
+        Request $request
+    ): ResponsableContract {
         Feedback::query()->create($request->validated());
 
         $data = [
