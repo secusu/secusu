@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\Feedback\Options;
+namespace App\Http\Api\Stat\Options;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;

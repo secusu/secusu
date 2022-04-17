@@ -11,13 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\S\Options;
+namespace App\Http\Api\S\Options;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
 
-class Action extends Controller
+class Action
 {
     public function __invoke(Request $request): ResponsableContract
     {

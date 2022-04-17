@@ -11,10 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\Bot\Telegram;
+namespace App\Http\Api\Bot\Telegram;
 
 use App\Exceptions\Telegram\WebhookException;
-use App\Http\Controllers\Controller;
 use App\Repositories\Secu\SecuRepository;
 use App\Services\CryptService;
 use App\Services\TelegramBotService;
@@ -22,7 +21,10 @@ use Exception;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
-class Action extends Controller
+use function env;
+use function resource_path;
+
+class Action
 {
     /**
      * @var \App\Repositories\Secu\SecuRepository

@@ -11,11 +11,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\Feedback\Post;
+namespace App\Http\Api\S\Get;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Nocarrier\Hal;
+
+use function route;
 
 class Response implements Responsable
 {
@@ -30,13 +32,14 @@ class Response implements Responsable
     }
     public function toResponse($request)
     {
-        return response($this->toJson($request), 201);
+        return $this->toJson($request);
     }
 
     private function toJson(Request $request)
     {
         $hal = new Hal($request->url());
         $hal->setData($this->data);
+        $hal->addLink('store', route('secu.store'));
 
         return $hal->asJson();
     }

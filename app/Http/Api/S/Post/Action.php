@@ -11,13 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\S\Post;
+namespace App\Http\Api\S\Post;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\Secu\SecuRepository;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
-class Action extends Controller
+class Action
 {
     public function __invoke(SecuRepository $secu, Request $request): ResponsableContract
     {

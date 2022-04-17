@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\S\Post;
+namespace App\Http\Api\Feedback\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -35,9 +35,12 @@ class Request extends FormRequest
     public function rules(): array
     {
         return [
-            'data' => [
+            'email' => [
+                'email',
+            ],
+            'body' => [
                 'required',
-//                'string',
+                'string',
             ],
         ];
     }

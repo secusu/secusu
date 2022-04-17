@@ -11,11 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\S\Post;
+namespace App\Http\Api\S\Post;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Nocarrier\Hal;
+
+use function response;
+use function route;
 
 class Response implements Responsable
 {

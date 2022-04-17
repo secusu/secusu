@@ -11,11 +11,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\Stat\Options;
+namespace App\Http\Api\Feedback\Post;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Nocarrier\Hal;
+
+use function response;
 
 class Response implements Responsable
 {
@@ -30,7 +32,7 @@ class Response implements Responsable
     }
     public function toResponse($request)
     {
-        return $this->toJson($request);
+        return response($this->toJson($request), 201);
     }
 
     private function toJson(Request $request)

@@ -11,15 +11,16 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\S\Get;
+namespace App\Http\Api\S\Get;
 
-use App\Http\Controllers\Controller;
 use App\Models\Secu;
 use App\Repositories\Secu\SecuRepository;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
 
-class Action extends Controller
+use function str_random;
+
+class Action
 {
     public function __invoke(string $hash, SecuRepository $secu, Request $request): ResponsableContract
     {

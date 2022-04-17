@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Controllers\S\Get;
+namespace App\Http\Api\Feedback\Options;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
@@ -37,7 +37,6 @@ class Response implements Responsable
     {
         $hal = new Hal($request->url());
         $hal->setData($this->data);
-        $hal->addLink('store', route('secu.store'));
 
         return $hal->asJson();
     }

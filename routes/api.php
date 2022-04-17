@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+use App\Http\Api\Bot;
+use App\Http\Api\Feedback;
+use App\Http\Api\S;
+use App\Http\Api\Stat;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,28 +19,40 @@ declare(strict_types=1);
 |
 */
 
-Route::group(['prefix' => 's', 'as' => 'secu.'], function () {
-    Route::options('/', ['as' => 'options'])
-        ->uses('S\Options\Action');
+Route::options(
+    's/',
+    S\Options\Action::class
+)->name('secu.options');
 
-    Route::post('/', ['as' => 'store'])
-        ->uses('S\Post\Action');
+Route::post(
+    's/',
+    S\Post\Action::class
+)->name('secu.store');
 
-    Route::get('{hash}', ['as' => 'show'])
-        ->uses('S\Get\Action');
-});
-
-
-Route::options('feedback', ['as' => 'feedback.options'])
-    ->uses('Feedback\Options\Action');
-
-Route::post('feedback', ['as' => 'feedback.store'])
-    ->uses('Feedback\Post\Action');
+Route::get(
+    's/{hash}',
+    S\Get\Action::class
+)->name('secu.show');
 
 
-Route::get('stat', ['as' => 'stat.index'])
-    ->uses('Stat\Collect\Action');
+Route::options(
+    'feedback',
+    Feedback\Options\Action::class
+)->name('feedback.options');
+
+Route::post(
+    'feedback',
+    Feedback\Post\Action::class
+)->name('feedback.store');
 
 
-Route::post('bot/telegram/{token}', ['as' => 'bot.telegram.listen'])
-    ->uses('Bot\Telegram\Action');
+Route::get(
+    'stat',
+    Stat\Collect\Action::class
+)->name('stat.index');
+
+
+Route::post(
+    'bot/telegram/{token}',
+    Bot\Telegram\Action::class
+)->name('bot.telegram.listen');
