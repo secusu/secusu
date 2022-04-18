@@ -14,31 +14,25 @@ declare(strict_types=1);
 namespace App\Repositories\Secu;
 
 use App\Models\Secu;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 final class SecuRepositoryEloquent implements SecuRepository
 {
-    /**
-     * @var \App\Models\Secu
-     */
-    private $secu;
+    private Secu $secu;
 
-    /**
-     * @var \App\Models\Secu
-     */
-    private $instance;
+    private Secu $instance;
 
-    public function __construct(Secu $secu)
-    {
+    public function __construct(
+        Secu $secu
+    ) {
         $this->secu = $secu;
     }
 
     /**
      * Get SЁCU id.
-     *
-     * @return string
      */
     public function getId(): string
     {
@@ -47,8 +41,6 @@ final class SecuRepositoryEloquent implements SecuRepository
 
     /**
      * Get SЁCU hash.
-     *
-     * @return string
      */
     public function getHash(): string
     {
@@ -61,8 +53,9 @@ final class SecuRepositoryEloquent implements SecuRepository
      * @param string|array $data Data needed to be stored
      * @return void
      */
-    public function store($data): void
-    {
+    public function store(
+        $data
+    ): void {
         $data = json_encode($data);
 
         $this->instance = $this->secu->query()->create([
@@ -73,12 +66,11 @@ final class SecuRepositoryEloquent implements SecuRepository
     /**
      * Retrieve record and destroy.
      *
-     * @param string $hash
-     * @return \App\Models\Secu $secu
-     * @throws \Exception
+     * @throws Exception
      */
-    public function findByHashAndDestroy(string $hash): Secu
-    {
+    public function findByHashAndDestroy(
+        string $hash
+    ): Secu {
         /** @var \App\Models\Secu $secu */
         $secu = $this->secu->findByHash($hash);
         if (!$secu) {
@@ -93,47 +85,90 @@ final class SecuRepositoryEloquent implements SecuRepository
 
     /**
      * Get records older than timestamp.
-     *
-     * @param \Illuminate\Support\Carbon $timestamp
-     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function olderThan(Carbon $timestamp): Builder
-    {
+    public function olderThan(
+        Carbon $timestamp
+    ): Builder {
         return $this->secu->olderThan($timestamp);
     }
 
     /**
      * Get SЁCU total created count.
-     *
-     * @return int
      */
     public function getSecuTotalCreatedCount(): int
     {
-        if (DB::getDriverName() === 'sqlite') {
-            $schema = DB::table('SQLITE_SEQUENCE')
-                ->where('name', $this->secu->getTable())
-                ->select('seq')
-                ->first();
+        $dbDriverName = DB::getDriverName();
 
-            $sequence = intval($schema->seq);
-
-            return $sequence;
+        switch ($dbDriverName) {
+            case 'sqlite':
+                return $this->getSequenceOfSqliteTable(
+                    $this->secu->getTable()
+                );
+            case 'mysql':
+                return $this->getSequenceOfMysqlTable(
+                    $this->secu->getTable()
+                );
+            case 'pgsql':
+                return $this->getSequenceOfPgsqlTable(
+                    'secu_id_seq'
+                );
+            default:
+                throw new \DomainException("Unsupported database driver `$dbDriverName`");
         }
+    }
+
+    protected function getSequenceOfSqliteTable(
+        string $tableName
+    ): int {
+        $schema = DB::table('SQLITE_SEQUENCE')
+            ->where('name', $tableName)
+            ->select('seq')
+            ->first();
+
+        return intval($schema->seq);
+    }
+
+    private function getSequenceOfMysqlTable(
+        string $tableName
+    ): int {
+        $databaseName = config('database.connections.mysql.database');
 
         // TODO: Use config instead of `env`
         $schema = DB::table('INFORMATION_SCHEMA.TABLES')
-                    ->where('TABLE_SCHEMA', env('DB_DATABASE'))
-                    ->where('TABLE_NAME', $this->secu->getTable())
-                    ->select('AUTO_INCREMENT')
-                    ->first();
+            ->where('TABLE_SCHEMA', $databaseName)
+            ->where('TABLE_NAME', $tableName)
+            ->select('AUTO_INCREMENT')
+            ->first();
 
-        if (!$schema) {
+        if ($schema === null) {
             return 0;
         }
 
-        $sequence = intval($schema->AUTO_INCREMENT);
-        $sequence = $sequence - 1;
+        return intval($schema->AUTO_INCREMENT) - 1;
+    }
 
-        return $sequence;
+    private function getSequenceOfPgsqlTable(
+        string $sequenceName
+    ): int {
+        $schemaName = config('database.connections.pgsql.schema');
+
+        $nextSequenceId = DB::selectOne(
+            <<<SQL
+                SELECT last_value
+                FROM pg_sequences
+                WHERE schemaname = :schema_name
+                AND sequencename = :sequence_name
+            SQL,
+            [
+                'schema_name' => $schemaName,
+                'sequence_name' => $sequenceName,
+            ]
+        );
+
+        if ($nextSequenceId === null) {
+            return 0;
+        }
+
+        return $nextSequenceId->last_value;
     }
 }
