@@ -95,7 +95,7 @@ class BotTelegramController
                 'text' => $text,
             ]);
             // TODO: Use `config` instead of `env`
-            $url = sprintf('%s/%s', env('APP_URL'), $this->secu->getHash());
+            $url = sprintf('%s/%s', config('app.url'), $this->secu->getHash());
 
             return $this->telegram->sendMessage($fromId, $this->getSuccessTextResponse($url));
         } catch (Exception $e) {

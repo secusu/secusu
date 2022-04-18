@@ -15,29 +15,29 @@ namespace App\Services;
 
 use GuzzleHttp\Client as GuzzleHttp;
 
-class CryptService
+final class CryptService
 {
-    /**
-     * @var GuzzleHttp
-     */
-    private $http;
+    private string $baseUri;
 
-    public function __construct()
-    {
-        $this->http = new GuzzleHttp();
+    private GuzzleHttp $http;
+
+    public function __construct(
+        string $baseUri,
+        GuzzleHttp $http
+    ) {
+        $this->baseUri = $baseUri;
+        $this->http = $http;
     }
 
     /**
      * Encrypt data with provided password.
-     *
-     * @param string $password
-     * @param string $message
-     * @return string
      */
-    public function encrypt(string $password, string $message): string
-    {
+    public function encrypt(
+        string $password,
+        string $message
+    ): string {
         $response = $this->http->post(
-            env('CRYPT_URL', 'http://127.0.0.1:3000') . '/encrypt',
+            $this->buildUrl('/encrypt'),
             [
                 'form_params' => [
                     'password' => $password,
@@ -45,22 +45,26 @@ class CryptService
                 ],
             ]
         );
-        $cipher = json_decode($response->getBody()->getContents(), true);
+
+        $cipher = json_decode(
+            $response->getBody()->getContents(),
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
 
         return $cipher;
     }
 
     /**
      * Decrypt cipher using password.
-     *
-     * @param string $password
-     * @param string $message
-     * @return string
      */
-    public function decrypt(string $password, string $message): string
-    {
+    public function decrypt(
+        string $password,
+        string $message
+    ): string {
         $response = $this->http->post(
-            env('CRYPT_URL', 'http://127.0.0.1:3000') . '/decrypt',
+            $this->buildUrl('/decrypt'),
             [
                 'form_params' => [
                     'password' => $password,
@@ -68,8 +72,15 @@ class CryptService
                 ],
             ]
         );
+
         $data = $response->getBody()->getContents();
 
         return $data;
+    }
+
+    protected function buildUrl(
+        string $uri
+    ): string {
+        return rtrim($this->baseUri, '/') . '/' . ltrim($uri, '/');
     }
 }

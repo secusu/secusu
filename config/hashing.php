@@ -51,4 +51,8 @@ return [
         'time' => 2,
     ],
 
+    'remote_crypter' => [
+        'base_uri' => env('CRYPT_URL', 'http://127.0.0.1:3000'),
+    ],
+
 ];
