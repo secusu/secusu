@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::redirect(
+    '/',
+    config('app.web_url')
+);
+
 Route::options(
     's/',
     S\OptionsSController::class
