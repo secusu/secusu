@@ -31,7 +31,7 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      VIRTUAL_HOST: secu.localhost
+      VIRTUAL_HOST: api.secu.localhost
     volumes:
       - ./.docker/nginx/secu.conf:/etc/nginx/nginx.conf:ro
       - ./public:/app/public:ro

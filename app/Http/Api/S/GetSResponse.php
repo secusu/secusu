@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\S\Get;
+namespace App\Http\Api\S;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
@@ -19,24 +19,25 @@ use Nocarrier\Hal;
 
 use function route;
 
-class Response implements Responsable
+class GetSResponse implements Responsable
 {
-    /**
-     * @var array
-     */
-    private $data;
+    private array $data;
 
-    public function __construct(array $data)
-    {
+    public function __construct(
+        array $data
+    ) {
         $this->data = $data;
     }
-    public function toResponse($request)
-    {
+
+    public function toResponse(
+        $request
+    ) {
         return $this->toJson($request);
     }
 
-    private function toJson(Request $request)
-    {
+    private function toJson(
+        Request $request
+    ) {
         $hal = new Hal($request->url());
         $hal->setData($this->data);
         $hal->addLink('store', route('secu.store'));

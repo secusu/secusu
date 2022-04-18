@@ -11,15 +11,16 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Feedback\Options;
+namespace App\Http\Api\Feedback;
 
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
 
-class Action
+class OptionsFeedbackController
 {
-    public function __invoke(Request $request): ResponsableContract
-    {
+    public function __invoke(
+        Request $request
+    ): ResponsableContract {
         $data = [
             'POST' => [
                 'description' => 'Post a feedback',
@@ -42,6 +43,6 @@ class Action
             ],
         ];
 
-        return new Response($data);
+        return new OptionsFeedbackResponse($data);
     }
 }

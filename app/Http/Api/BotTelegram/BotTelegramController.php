@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Bot\Telegram;
+namespace App\Http\Api\BotTelegram;
 
 use App\Exceptions\Telegram\WebhookException;
 use App\Repositories\Secu\SecuRepository;
@@ -24,35 +24,21 @@ use Illuminate\Support\Facades\Log;
 use function env;
 use function resource_path;
 
-class Action
+class BotTelegramController
 {
-    /**
-     * @var \App\Repositories\Secu\SecuRepository
-     */
-    private $secu;
+    private SecuRepository $secu;
 
-    /**
-     * @var \App\Services\TelegramBotService
-     */
-    private $telegram;
+    private TelegramBotService $telegram;
 
-    /**
-     * @var \App\Services\CryptService
-     */
-    private $crypt;
+    private CryptService $crypt;
 
-    /**
-     * @var null|string
-     */
-    private $password;
+    private ?string $password;
 
-    /**
-     * @param \App\Repositories\Secu\SecuRepository $secu
-     * @param \App\Services\TelegramBotService $telegram
-     * @param \App\Services\CryptService $crypt
-     */
-    public function __construct(SecuRepository $secu, TelegramBotService $telegram, CryptService $crypt)
-    {
+    public function __construct(
+        SecuRepository $secu,
+        TelegramBotService $telegram,
+        CryptService $crypt
+    ) {
         $this->secu = $secu;
         $this->telegram = $telegram;
         $this->crypt = $crypt;
@@ -120,8 +106,6 @@ class Action
 
     /**
      * Generate bot welcome text.
-     *
-     * @return string
      */
     private function getWelcomeTextResponse(): string
     {
@@ -130,8 +114,6 @@ class Action
 
     /**
      * Generate bot received empty text.
-     *
-     * @return string
      */
     private function getEmptyTextReceivedResponse(): string
     {
@@ -140,9 +122,6 @@ class Action
 
     /**
      * Generate bot success proceed message.
-     *
-     * @param string $url
-     * @return string
      */
     private function getSuccessTextResponse(string $url): string
     {
@@ -153,9 +132,6 @@ class Action
 
     /**
      * Try to find password set in message string.
-     *
-     * @param string $text
-     * @return string
      */
     private function parsePassword(string $text): string
     {

@@ -38,23 +38,6 @@ class RouteServiceProvider extends ServiceProvider
     public function map(): void
     {
         $this->mapApiRoutes();
-
-        $this->mapWebRoutes();
-
-        //
-    }
-
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    private function mapWebRoutes(): void
-    {
-        Route::middleware('web')
-             ->group(base_path('routes/web.php'));
     }
 
     /**

@@ -11,21 +11,22 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Stat\Options;
+namespace App\Http\Api\Feedback;
 
+use App\Models\Feedback;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
-use Illuminate\Http\Request;
 
-class Action
+class PostFeedbackController
 {
-    public function __invoke(Request $request): ResponsableContract
-    {
+    public function __invoke(
+        PostFeedbackRequest $request
+    ): ResponsableContract {
+        Feedback::query()->create($request->validated());
+
         $data = [
-            'GET' => [
-                'description' => 'Get SЁCU statistics',
-            ],
+            'success' => true,
         ];
 
-        return new Response($data);
+        return new PostFeedbackResponse($data);
     }
 }

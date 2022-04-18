@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\S\Post;
+namespace App\Http\Api\S;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
@@ -20,24 +20,25 @@ use Nocarrier\Hal;
 use function response;
 use function route;
 
-class Response implements Responsable
+class PostSResponse implements Responsable
 {
-    /**
-     * @var string
-     */
-    private $hash;
+    private string $hash;
 
-    public function __construct(string $hash)
-    {
+    public function __construct(
+        string $hash
+    ) {
         $this->hash = $hash;
     }
-    public function toResponse($request)
-    {
+
+    public function toResponse(
+        $request
+    ) {
         return response($this->toJson($request), 201);
     }
 
-    private function toJson(Request $request)
-    {
+    private function toJson(
+        Request $request
+    ) {
         $hal = new Hal($request->route()->uri());
         $hal->setData([
             'hash' => $this->hash,

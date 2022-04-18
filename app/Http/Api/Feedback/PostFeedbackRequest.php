@@ -11,16 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Feedback\Post;
+namespace App\Http\Api\Feedback;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Request extends FormRequest
+class PostFeedbackRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -29,8 +27,6 @@ class Request extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
     public function rules(): array
     {
