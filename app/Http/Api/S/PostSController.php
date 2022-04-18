@@ -11,13 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Stat\Collect;
+namespace App\Http\Api\S;
 
 use App\Repositories\Secu\SecuRepository;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
-use Illuminate\Http\Request;
 
-class Action
+class PostSController
 {
     private SecuRepository $secuRepository;
 
@@ -28,16 +27,11 @@ class Action
     }
 
     public function __invoke(
-        Request $request
+        PostSRequest $request
     ): ResponsableContract {
-        $secuCreatedCount = $this->secuRepository->getSecuTotalCreatedCount();
+        $this->secuRepository->store($request->input('data'));
+        $hash = $this->secuRepository->getHash();
 
-        $data = [
-            'secu' => [
-                'count' => $secuCreatedCount,
-            ],
-        ];
-
-        return new Response($data);
+        return new PostSResponse($hash);
     }
 }

@@ -11,22 +11,22 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Feedback\Post;
+namespace App\Http\Api\Stat;
 
-use App\Models\Feedback;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
+use Illuminate\Http\Request;
 
-class Action
+class OptionsStatController
 {
     public function __invoke(
         Request $request
     ): ResponsableContract {
-        Feedback::query()->create($request->validated());
-
         $data = [
-            'success' => true,
+            'GET' => [
+                'description' => 'Get SЁCU statistics',
+            ],
         ];
 
-        return new Response($data);
+        return new OptionsStatResponse($data);
     }
 }

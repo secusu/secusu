@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Api\Bot;
+use App\Http\Api\BotTelegram;
 use App\Http\Api\Feedback;
 use App\Http\Api\S;
 use App\Http\Api\Stat;
@@ -21,38 +21,38 @@ use Illuminate\Support\Facades\Route;
 
 Route::options(
     's/',
-    S\Options\Action::class
+    S\OptionsSController::class
 )->name('secu.options');
 
 Route::post(
     's/',
-    S\Post\Action::class
+    S\PostSController::class
 )->name('secu.store');
 
 Route::get(
     's/{hash}',
-    S\Get\Action::class
+    S\GetSController::class
 )->name('secu.show');
 
 
 Route::options(
     'feedback',
-    Feedback\Options\Action::class
+    Feedback\OptionsFeedbackController::class
 )->name('feedback.options');
 
 Route::post(
     'feedback',
-    Feedback\Post\Action::class
+    Feedback\PostFeedbackController::class
 )->name('feedback.store');
 
 
 Route::get(
     'stat',
-    Stat\Collect\Action::class
+    Stat\GetStatController::class
 )->name('stat.index');
 
 
 Route::post(
     'bot/telegram/{token}',
-    Bot\Telegram\Action::class
+    BotTelegram\BotTelegramController::class
 )->name('bot.telegram.listen');

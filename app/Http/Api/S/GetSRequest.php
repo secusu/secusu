@@ -11,11 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\S\Get;
+namespace App\Http\Api\S;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Request extends FormRequest
+class GetSRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -11,22 +11,23 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Feedback\Post;
+namespace App\Http\Api\S;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Nocarrier\Hal;
 
 use function response;
+use function route;
 
-class Response implements Responsable
+class PostSResponse implements Responsable
 {
-    private array $data;
+    private string $hash;
 
     public function __construct(
-        array $data
+        string $hash
     ) {
-        $this->data = $data;
+        $this->hash = $hash;
     }
 
     public function toResponse(
@@ -38,8 +39,11 @@ class Response implements Responsable
     private function toJson(
         Request $request
     ) {
-        $hal = new Hal($request->url());
-        $hal->setData($this->data);
+        $hal = new Hal($request->route()->uri());
+        $hal->setData([
+            'hash' => $this->hash,
+        ]);
+        $hal->addLink('show', route('secu.show', $this->hash));
 
         return $hal->asJson();
     }

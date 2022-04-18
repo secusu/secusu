@@ -11,12 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\S\Options;
+namespace App\Http\Api\S;
 
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
 
-class Action
+class OptionsSController
 {
     public function __invoke(
         Request $request
@@ -37,6 +37,6 @@ class Action
             ],
         ];
 
-        return new Response($data);
+        return new OptionsSResponse($data);
     }
 }

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\S\Get;
+namespace App\Http\Api\S;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ use Nocarrier\Hal;
 
 use function route;
 
-class Response implements Responsable
+class GetSResponse implements Responsable
 {
     private array $data;
 

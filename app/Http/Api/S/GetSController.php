@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\S\Get;
+namespace App\Http\Api\S;
 
 use App\Models\Secu;
 use App\Repositories\Secu\SecuRepository;
@@ -19,7 +19,7 @@ use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
 use function str_random;
 
-class Action
+class GetSController
 {
     private SecuRepository $secuRepository;
 
@@ -30,7 +30,7 @@ class Action
     }
 
     public function __invoke(
-        Request $request
+        GetSRequest $request
     ): ResponsableContract {
         $hash = $request->getHash();
 
@@ -41,7 +41,7 @@ class Action
             $data = $this->generateFakeData();
         }
 
-        return new Response($data);
+        return new GetSResponse($data);
     }
 
     private function decodeRealData(

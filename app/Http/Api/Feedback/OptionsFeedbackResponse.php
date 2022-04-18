@@ -11,13 +11,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Feedback\Options;
+namespace App\Http\Api\Feedback;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Nocarrier\Hal;
 
-class Response implements Responsable
+class OptionsFeedbackResponse implements Responsable
 {
     private array $data;
 

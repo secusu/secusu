@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\Bot\Telegram;
+namespace App\Http\Api\BotTelegram;
 
 use App\Exceptions\Telegram\WebhookException;
 use App\Repositories\Secu\SecuRepository;
@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Log;
 use function env;
 use function resource_path;
 
-class Action
+class BotTelegramController
 {
     private SecuRepository $secu;
 

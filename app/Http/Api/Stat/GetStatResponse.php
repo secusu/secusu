@@ -11,13 +11,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Http\Api\S\Options;
+namespace App\Http\Api\Stat;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Nocarrier\Hal;
 
-class Response implements Responsable
+class GetStatResponse implements Responsable
 {
     private array $data;
 
