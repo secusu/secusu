@@ -17,7 +17,7 @@ use App\Repositories\Secu\SecuRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
-class DestroyOutdated extends Command
+final class DestroyOutdated extends Command
 {
     /**
      * The name and signature of the console command.

@@ -22,7 +22,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class SecuWasCreated implements ShouldBroadcast
+final class SecuWasCreated implements ShouldBroadcast
 {
     use Dispatchable;
     use InteractsWithSockets;

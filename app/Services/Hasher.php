@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-class Hasher
+final class Hasher
 {
     /**
      * String from which the hash will be generated.

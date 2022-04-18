@@ -15,7 +15,7 @@ namespace App\Http\Api\Feedback;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostFeedbackRequest extends FormRequest
+final class PostFeedbackRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -17,7 +17,7 @@ use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Message;
 use Telegram\Bot\Objects\Update;
 
-class TelegramBotService
+final class TelegramBotService
 {
     /**
      * @var \Telegram\Bot\Api

@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-class Secu extends Model
+final class Secu extends Model
 {
     use HasUniqueHashTrait;
 

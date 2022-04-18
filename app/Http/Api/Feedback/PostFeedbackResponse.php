@@ -19,7 +19,7 @@ use Nocarrier\Hal;
 
 use function response;
 
-class PostFeedbackResponse implements Responsable
+final class PostFeedbackResponse implements Responsable
 {
     private array $data;
 

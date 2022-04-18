@@ -17,7 +17,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Nocarrier\Hal;
 
-class OptionsStatResponse implements Responsable
+final class OptionsStatResponse implements Responsable
 {
     private array $data;
 

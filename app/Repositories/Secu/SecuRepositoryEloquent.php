@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class SecuRepositoryEloquent implements SecuRepository
+final class SecuRepositoryEloquent implements SecuRepository
 {
     /**
      * @var \App\Models\Secu

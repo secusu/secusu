@@ -16,7 +16,7 @@ namespace App\Http\Api\Feedback;
 use App\Models\Feedback;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
-class PostFeedbackController
+final class PostFeedbackController
 {
     public function __invoke(
         PostFeedbackRequest $request

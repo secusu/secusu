@@ -19,10 +19,9 @@ use App\Services\CryptService;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Config\Repository as AppConfigRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application as ApplicationInterface;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+final class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.

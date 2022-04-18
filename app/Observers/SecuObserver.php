@@ -16,7 +16,7 @@ namespace App\Observers;
 use App\Events\SecuWasCreated;
 use App\Models\Secu;
 
-class SecuObserver
+final class SecuObserver
 {
     public function creating(Secu $secu): void
     {

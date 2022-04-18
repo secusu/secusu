@@ -19,7 +19,7 @@ use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
 use function str_random;
 
-class GetSController
+final class GetSController
 {
     private SecuRepository $secuRepository;
 

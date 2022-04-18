@@ -17,7 +17,7 @@ use App\Repositories\Secu\SecuRepository;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
 
-class GetStatController
+final class GetStatController
 {
     private SecuRepository $secuRepository;
 

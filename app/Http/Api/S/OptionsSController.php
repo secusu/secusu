@@ -16,7 +16,7 @@ namespace App\Http\Api\S;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
 
-class OptionsSController
+final class OptionsSController
 {
     public function __invoke(
         Request $request

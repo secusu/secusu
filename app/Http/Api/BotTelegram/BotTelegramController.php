@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Log;
 use function env;
 use function resource_path;
 
-class BotTelegramController
+final class BotTelegramController
 {
     private SecuRepository $secu;
 

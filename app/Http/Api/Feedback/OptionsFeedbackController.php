@@ -16,7 +16,7 @@ namespace App\Http\Api\Feedback;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
 
-class OptionsFeedbackController
+final class OptionsFeedbackController
 {
     public function __invoke(
         Request $request

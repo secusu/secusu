@@ -16,7 +16,7 @@ namespace App\Http\Api\S;
 use App\Repositories\Secu\SecuRepository;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 
-class PostSController
+final class PostSController
 {
     private SecuRepository $secuRepository;
 

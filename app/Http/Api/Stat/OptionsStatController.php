@@ -16,7 +16,7 @@ namespace App\Http\Api\Stat;
 use Illuminate\Contracts\Support\Responsable as ResponsableContract;
 use Illuminate\Http\Request;
 
-class OptionsStatController
+final class OptionsStatController
 {
     public function __invoke(
         Request $request

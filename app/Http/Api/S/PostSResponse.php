@@ -20,7 +20,7 @@ use Nocarrier\Hal;
 use function response;
 use function route;
 
-class PostSResponse implements Responsable
+final class PostSResponse implements Responsable
 {
     private string $hash;
 

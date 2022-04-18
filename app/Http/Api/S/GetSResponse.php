@@ -19,7 +19,7 @@ use Nocarrier\Hal;
 
 use function route;
 
-class GetSResponse implements Responsable
+final class GetSResponse implements Responsable
 {
     private array $data;
 

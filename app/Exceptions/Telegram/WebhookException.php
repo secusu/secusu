@@ -15,7 +15,7 @@ namespace App\Exceptions\Telegram;
 
 use Exception;
 
-class WebhookException extends Exception
+final class WebhookException extends Exception
 {
     public static function requestEmpty()
     {

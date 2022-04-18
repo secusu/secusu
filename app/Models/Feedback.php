@@ -15,7 +15,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Feedback extends Model
+final class Feedback extends Model
 {
     /**
      * The table associated with the model.
